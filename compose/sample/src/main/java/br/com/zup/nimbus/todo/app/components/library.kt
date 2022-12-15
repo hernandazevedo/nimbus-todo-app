@@ -23,4 +23,5 @@ val materialComponents = NimbusComposeUILibrary("material")
     .addComponent("button") @Composable { Button(it) }
     .addComponent("text") @Composable { Text(it) }
     .addComponent("textInput") @Composable { TextInput(it) }
+    .addComponent("checkBox") @Composable { CheckBox(it) }
 

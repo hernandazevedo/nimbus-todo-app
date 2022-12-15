@@ -1,4 +1,4 @@
-# [**Nimbus Compose Sample**](https://github.com/ZupIT/nimbus-docs/) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/ZupIT/nimbus-layout-compose/blob/main/LICENSE.txt)
+# [**Nimbus TODO APP**](https://github.com/ZupIT/nimbus-docs/) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/ZupIT/nimbus-layout-compose/blob/main/LICENSE.txt)
 
 > Article level: basic.
 

@@ -47,7 +47,7 @@ dependencies {
 android {
     compileSdk = 33
     defaultConfig {
-        applicationId = "br.com.zup.nimbus.android.layout"
+        applicationId = "br.com.zup.nimbus.todo.app"
         minSdk = 21
         targetSdk = 33
         versionCode = 1

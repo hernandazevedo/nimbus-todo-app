@@ -16,13 +16,47 @@
 
 package br.com.zup.nimbus.todo.app.components
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.Ignore
 
 @Composable
 @AutoDeserialize
-fun Button(text: String, onPress: () -> Unit) {
-    Button(content = { Text(text) }, onClick = { onPress() })
+fun Button(
+    text: String,
+    @Ignore modifier: Modifier = Modifier,
+    enabled: Boolean? = null,
+    radius: Double? = null,
+    onPress: () -> Unit,
+) {
+    var newModifier = modifier
+    if (radius != null) {
+        newModifier =
+            newModifier.clip(RoundedCornerShape(radius.dp))
+    }
+    Button(
+        modifier = newModifier,
+        enabled = enabled ?: true,
+        content = { Text(text) }, onClick = { onPress() })
+}
+
+@Preview
+@Composable
+fun ButtonSample() {
+
+    Button(text = "+",
+        radius = 50.0,
+        modifier = Modifier.size(50.dp)
+    ) {
+
+    }
+
 }

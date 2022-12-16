@@ -16,12 +16,14 @@
 
 package br.com.zup.nimbus.todo.app.components
 
-import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
+import android.text.format.DateFormat
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
-val materialComponents = NimbusComposeUILibrary("material")
-    .addComponent("button") @Composable { Button(it) }
-    .addComponent("text") @Composable { Text(it) }
-    .addComponent("textInput") @Composable { TextInput(it) }
-    .addComponent("checkBox") @Composable { CheckBox(it) }
-    .addOperation("formatDate") { formatDate(it) }
+const val DATE_FORMAT = "dd/MM/yyyy hh:mm:ss"
+
+@AutoDeserialize
+fun formatDate(timeMillis: Long): String = convertDate(timeMillis, DATE_FORMAT)
+
+internal fun convertDate(dateInMilliseconds: Long, dateFormat: String?): String {
+    return DateFormat.format(dateFormat, dateInMilliseconds).toString()
+}

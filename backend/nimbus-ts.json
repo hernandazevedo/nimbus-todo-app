@@ -1,0 +1,10 @@
+{
+  "projectName": "backend",
+  "port": "3000",
+  "basePath": "",
+  "screensFolderPath": "src/screens",
+  "routes": {
+    "filePath": "src/screens/index.ts",
+    "varName": "routes"
+  }
+}

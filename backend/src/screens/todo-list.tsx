@@ -2,14 +2,14 @@ import { createState, ForEach, NimbusJSX, entries, If, Else, Then } from '@zup-i
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Lifecycle, Positioned, Row, Stack, Text } from '@zup-it/nimbus-backend-layout'
-import { showNotification } from 'src/actions'
-import { Button } from 'src/components/Button'
-import { Checkbox } from 'src/components/Checkbox'
-import { Spinner } from 'src/components/Spinner'
-import { TextInput } from 'src/components/TextInput'
-import { todoUrl } from 'src/constants'
-import { Note } from 'src/fragments/Note'
-import { ToDoItem, ToDoItemByDate } from 'src/types'
+import { showNotification } from '../actions'
+import { Button } from '../components/Button'
+import { Checkbox } from '../components/Checkbox'
+import { Spinner } from '../components/Spinner'
+import { TextInput } from '../components/TextInput'
+import { todoUrl } from '../constants'
+import { Note } from '../fragments/Note'
+import { ToDoItemByDate } from '../types'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
@@ -73,8 +73,10 @@ export const ToDoList: Screen = ({ navigator }) => {
         <Then>{loading}</Then>
         <Else>
           <Stack width="expand" height="expand" state={[searchTerm, showToDo, showDone]}>
-            {header}
-            {notes}
+            <Positioned>
+              {header}
+              {notes}
+            </Positioned>
             {addNoteButton}
           </Stack>
         </Else>

@@ -1,5 +1,5 @@
 import { NimbusJSX, FC, Actions, Expression, State, createStateNode } from '@zup-it/nimbus-backend-core'
-import { namespace } from 'src/constants'
+import { namespace } from '../constants'
 
 interface Props {
   checked: Expression<boolean>,

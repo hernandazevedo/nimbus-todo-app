@@ -16,5 +16,13 @@
 
 package br.com.zup.nimbus.todo.app
 
+import br.com.zup.nimbus.compose.layout.configuration.DefaultImageProvider
 
-const val BASE_URL = "http://10.0.2.2:3000"
+class LocalImageProvider: DefaultImageProvider() {
+    override fun fetchLocal(id: String) = when(id) {
+        "checked" -> R.drawable.checked
+        "unchecked" -> R.drawable.unchecked
+        "delete" -> R.drawable.delete
+        else -> null
+    }
+}

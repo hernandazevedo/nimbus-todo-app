@@ -16,13 +16,5 @@
 
 package br.com.zup.nimbus.todo.app.components
 
-import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
 
-val materialComponents = NimbusComposeUILibrary("material")
-    .addComponent("button") @Composable { Button(it) }
-    .addComponent("text") @Composable { Text(it) }
-    .addComponent("textInput") @Composable { TextInput(it) }
-    .addComponent("checkBox") @Composable { CheckBox(it) }
-    .addOperation("formatDate") { formatDate(it) }
-    .addOperation("filterNotes") { filterNotes(it) }
+data class Note(val title: String, val description: String, val date: Long, val done: Boolean)

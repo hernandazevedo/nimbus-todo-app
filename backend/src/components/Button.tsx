@@ -12,4 +12,4 @@ interface Props {
 }
 
 export const Button: FC<Props> = ({ id, state, children, ...props }) =>
-  <component namespace={namespace} name="checkbox" id={id} state={state} properties={{ text: children, ...props}} />
+  <component namespace={namespace} name="button" id={id} state={state} properties={{ text: children, ...props}} />

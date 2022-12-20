@@ -31,17 +31,12 @@ import br.com.zup.nimbus.annotation.Ignore
 fun CheckBox(
     checked: Boolean,
     label: String,
-    onChange: ((value: Boolean) -> Unit)? = null,
+    onChange: (value: Boolean) -> Unit,
     @Ignore modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier,
         verticalAlignment = Alignment.CenterVertically) {
-        Checkbox(
-            checked = checked,
-            onCheckedChange = {
-                onChange?.invoke(it)
-            }
-        )
+        Checkbox(checked = checked, onCheckedChange = onChange)
         Text(text = label)
     }
 }
@@ -50,5 +45,5 @@ fun CheckBox(
 @Composable
 fun CheckBoxSample() {
     CheckBox(label = "Type here",
-    checked = true)
+    checked = true, onChange = {})
 }

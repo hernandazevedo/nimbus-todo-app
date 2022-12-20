@@ -16,7 +16,9 @@
 
 package br.com.zup.nimbus.todo.app.components
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -24,7 +26,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
 
@@ -35,17 +39,27 @@ fun Button(
     @Ignore modifier: Modifier = Modifier,
     enabled: Boolean? = null,
     radius: Double? = null,
+    width: Double? = null,
+    height: Double? = null,
+    fontSize: Double? = null,
     onPress: () -> Unit,
 ) {
     var newModifier = modifier
     if (radius != null) {
-        newModifier =
-            newModifier.clip(RoundedCornerShape(radius.dp))
+        newModifier = newModifier.clip(RoundedCornerShape(radius.dp))
+    }
+    if (width != null) {
+        newModifier = newModifier.width(width.dp)
+    }
+    if (height != null) {
+        newModifier = newModifier.height(height.dp)
     }
     Button(
         modifier = newModifier,
         enabled = enabled ?: true,
-        content = { Text(text) }, onClick = { onPress() })
+        content = { Text(text, fontSize = fontSize?.sp ?: 12.sp) },
+        onClick = onPress,
+    )
 }
 
 @Preview

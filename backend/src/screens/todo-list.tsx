@@ -1,7 +1,7 @@
 import { createState, ForEach, NimbusJSX, entries, If, Else, Then } from '@zup-it/nimbus-backend-core'
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Column, Lifecycle, Positioned, Row, Stack, Text } from '@zup-it/nimbus-backend-layout'
+import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
 import { showNotification } from '../actions'
 import { Button } from '../components/Button'
 import { Checkbox } from '../components/Checkbox'
@@ -22,8 +22,8 @@ export const ToDoList: Screen = ({ navigator }) => {
     url: todoUrl,
     onSuccess: response => itemsByDate.set(response.get('data')),
     onError: response => [
+      log({ level: 'error', message: response.get('message') }),
       showNotification({ type: 'error', message: 'Could not load notes.' }),
-      log({ level: 'error', message: response.get('message') })
     ],
     onFinish: isLoading.set(false),
   })
@@ -41,21 +41,23 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   const notes = (
-    <ForEach items={entries(itemsByDate)} key="key">
-      {(entry) => (
-        <Column>
-          <Text weight="bold">{entry.get('key')}</Text>
-          <ForEach items={entry.get('value')} key="id">
-            {item => <Note title={item.get('title')} description={item.get('description')} isDone={item.get('isDone')} />}
-          </ForEach>
-        </Column>
-      )}
-    </ForEach>
+    <ScrollView>
+      <ForEach items={entries(itemsByDate)} key="key">
+        {(entry) => (
+          <Column width="expand">
+            <Text weight="bold">{entry.get('key')}</Text>
+            <ForEach items={entry.get('value')} key="id">
+              {item => <Note title={item.get('title')} description={item.get('description')} isDone={item.get('isDone')} />}
+            </ForEach>
+          </Column>
+        )}
+      </ForEach>
+    </ScrollView>
   )
 
   const addNoteButton = (
     <Positioned alignment="bottomEnd" margin={20}>
-      <Button width={50} height={50} radius={25} fontSize={18} onPress={showNotification({ type: 'info', message: 'This will add new notes' })}>
+      <Button width={50} height={50} radius={25} fontSize={24} onPress={showNotification({ type: 'info', message: 'This will add new notes' })}>
         +
       </Button>
     </Positioned>

@@ -16,12 +16,14 @@
 
 package br.com.zup.nimbus.todo.app.components
 
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
 
-val materialComponents = NimbusComposeUILibrary("material")
+val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("button") @Composable { Button(it) }
     .addComponent("text") @Composable { Text(it) }
     .addComponent("textInput") @Composable { TextInput(it) }
-    .addComponent("checkBox") @Composable { CheckBox(it) }
+    .addComponent("checkbox") @Composable { CheckBox(it) }
+    .addComponent("spinner") @Composable { CircularProgressIndicator() }
     .addOperation("formatDate") { formatDate(it) }

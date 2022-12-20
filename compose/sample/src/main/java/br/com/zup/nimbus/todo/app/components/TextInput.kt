@@ -37,7 +37,7 @@ fun TextInput(
     iconRight: String? = null,
     value: String? = null,
     type: TextInputType? = null,
-    onChange: ((value: String) -> Unit)? = null,
+    onChange: (value: String) -> Unit,
     @Ignore modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -45,7 +45,7 @@ fun TextInput(
     TextField(
         value = value ?: "",
         keyboardOptions = KeyboardOptions(keyboardType = (type ?: TextInputType.Text).keyboard),
-        onValueChange = { newValue -> onChange?.let { it(newValue) } },
+        onValueChange = onChange,
         label = { androidx.compose.material.Text(label) },
         trailingIcon = {
             iconRight?.let {
@@ -56,7 +56,6 @@ fun TextInput(
             }
         },
         modifier = modifier.fillMaxWidth(),
-
     )
 }
 
@@ -70,6 +69,5 @@ enum class TextInputType(val keyboard: KeyboardType) {
 @Preview
 @Composable
 fun TextInputSample() {
-    TextInput(label = "Type here",
-    iconRight = "search")
+    TextInput(label = "Type here", iconRight = "search", onChange = {})
 }

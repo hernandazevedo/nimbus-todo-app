@@ -2,6 +2,7 @@ import { createState, ForEach, NimbusJSX, entries, If, Else, Then } from '@zup-i
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
+import { formatDate } from '../operations'
 import { showNotification } from '../actions'
 import { Button } from '../components/Button'
 import { Checkbox } from '../components/Checkbox'
@@ -45,9 +46,9 @@ export const ToDoList: Screen = ({ navigator }) => {
       <ForEach items={entries(itemsByDate)} key="key">
         {(entry) => (
           <Column width="expand" marginHorizontal={12} marginBottom={20}>
-            <Text weight="bold" size={16}>{entry.get('key')}</Text>
+            <Text weight="bold" size={16}>{formatDate(entry.get('key'))}</Text>
             <ForEach items={entry.get('value')} key="id">
-              {item => <Note title={item.get('title')} description={item.get('description')} isDone={item.get('isDone')} />}
+              {item => <Note value={item} />}
             </ForEach>
           </Column>
         )}

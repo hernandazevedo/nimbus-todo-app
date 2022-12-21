@@ -16,8 +16,11 @@
 
 package br.com.zup.nimbus.todo.app.components
 
-import android.text.format.DateFormat
 import br.com.zup.nimbus.annotation.AutoDeserialize
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 const val DATE_FORMAT = "dd/MM/yyyy"
 
@@ -25,5 +28,8 @@ const val DATE_FORMAT = "dd/MM/yyyy"
 fun formatDate(timeMillis: Long): String = convertDate(timeMillis, DATE_FORMAT)
 
 internal fun convertDate(dateInMilliseconds: Long, dateFormat: String?): String {
-    return DateFormat.format(dateFormat, dateInMilliseconds).toString()
+    val formatter = SimpleDateFormat(dateFormat ?: DATE_FORMAT, Locale.ENGLISH)
+    formatter.timeZone = TimeZone.getTimeZone("UTC")
+    val dateTime = Date(dateInMilliseconds)
+    return formatter.format(dateTime)
 }

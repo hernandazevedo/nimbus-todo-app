@@ -1,18 +1,19 @@
-import { NimbusJSX, FC, Expression } from '@zup-it/nimbus-backend-core'
-import { Column, LocalImage, Row, Text } from '@zup-it/nimbus-backend-layout'
+import { NimbusJSX, FC, State, condition, not } from '@zup-it/nimbus-backend-core'
+import { Column, LocalImage, Row, Text, Touchable } from '@zup-it/nimbus-backend-layout'
+import { ToDoItem } from 'src/types'
 
 interface Props {
-  title: Expression<string>,
-  description: Expression<string>,
-  isDone: Expression<boolean>,
+  value: State<ToDoItem>,
 }
 
-export const Note: FC<Props> = ({ description, isDone, title }) => (
+export const Note: FC<Props> = ({ value }) => (
   <Row crossAxisAlignment="center" padding={10}>
-    <LocalImage localImageId={isDone ? 'checked' : 'unchecked'} width={32} height={32} />
+    <Touchable onPress={value.get('isDone').set(not(value.get('isDone')))}>
+      <LocalImage localImageId={condition(value.get('isDone'), 'checked', 'unchecked')} width={32} height={32} />
+    </Touchable>
     <Column marginHorizontal={20} width="expand">
-      <Text weight="bold">{title}</Text>
-      <Text>{description}</Text>
+      <Text weight="bold">{value.get('title')}</Text>
+      <Text>{value.get('description')}</Text>
     </Column>
     <LocalImage localImageId="delete" width={18} height={18} />
   </Row>

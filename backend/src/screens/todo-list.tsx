@@ -44,8 +44,8 @@ export const ToDoList: Screen = ({ navigator }) => {
     <ScrollView>
       <ForEach items={entries(itemsByDate)} key="key">
         {(entry) => (
-          <Column width="expand">
-            <Text weight="bold">{entry.get('key')}</Text>
+          <Column width="expand" marginHorizontal={12} marginBottom={20}>
+            <Text weight="bold" size={16}>{entry.get('key')}</Text>
             <ForEach items={entry.get('value')} key="id">
               {item => <Note title={item.get('title')} description={item.get('description')} isDone={item.get('isDone')} />}
             </ForEach>

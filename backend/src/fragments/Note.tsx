@@ -8,11 +8,12 @@ interface Props {
 }
 
 export const Note: FC<Props> = ({ description, isDone, title }) => (
-  <Row crossAxisAlignment="center">
+  <Row crossAxisAlignment="center" padding={10}>
     <LocalImage localImageId={isDone ? 'checked' : 'unchecked'} width={32} height={32} />
-    <Column marginStart={20}>
+    <Column marginHorizontal={20} width="expand">
       <Text weight="bold">{title}</Text>
       <Text>{description}</Text>
     </Column>
+    <LocalImage localImageId="delete" width={18} height={18} />
   </Row>
 )

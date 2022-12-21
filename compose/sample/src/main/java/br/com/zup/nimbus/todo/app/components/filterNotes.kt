@@ -16,14 +16,29 @@
 
 package br.com.zup.nimbus.todo.app.components
 
-import android.text.format.DateFormat
 import br.com.zup.nimbus.annotation.AutoDeserialize
 
-const val DATE_FORMAT = "dd/MM/yyyy"
-
 @AutoDeserialize
-fun formatDate(timeMillis: Long): String = convertDate(timeMillis, DATE_FORMAT)
+fun filterNotes(
+    notes: Map<String, List<Note>>,
+    text: String?,
+    todo: Boolean,
+    done: Boolean,
+): Map<String, List<Note>> {
+    val newMap: MutableMap<String, List<Note>> = mutableMapOf()
+    notes.forEach { map ->
+        val filteredList = map.value.filter {
+            (text != null && it.description.contains(text) ||
+                    text != null && it.title.contains(text)) &&
+                    (
+                        done && it.done ||
+                        todo && it.done.not()
+                    )
+        }
+        if (filteredList.isNotEmpty()) {
+            newMap[map.key] = filteredList
+        }
+    }
 
-internal fun convertDate(dateInMilliseconds: Long, dateFormat: String?): String {
-    return DateFormat.format(dateFormat, dateInMilliseconds).toString()
+    return newMap
 }

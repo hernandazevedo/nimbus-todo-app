@@ -16,14 +16,5 @@
 
 package br.com.zup.nimbus.todo.app.components
 
-import android.text.format.DateFormat
-import br.com.zup.nimbus.annotation.AutoDeserialize
 
-const val DATE_FORMAT = "dd/MM/yyyy"
-
-@AutoDeserialize
-fun formatDate(timeMillis: Long): String = convertDate(timeMillis, DATE_FORMAT)
-
-internal fun convertDate(dateInMilliseconds: Long, dateFormat: String?): String {
-    return DateFormat.format(dateFormat, dateInMilliseconds).toString()
-}
+data class Note(val title: String, val description: String, val date: Long, val done: Boolean)

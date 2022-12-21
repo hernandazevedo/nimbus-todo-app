@@ -29,6 +29,7 @@ dependencies {
     implementation("br.com.zup.nimbus:nimbus-compose:${rootProject.extra["nimbus_compose_version"]}")
     implementation("br.com.zup.nimbus:nimbus-compose-annotation:${rootProject.extra["nimbus_compose_version"]}")
     ksp("br.com.zup.nimbus:nimbus-compose-processor:${rootProject.extra["nimbus_compose_version"]}")
+    implementation("br.com.zup.nimbus:nimbus-layout-compose:1.0.0-alpha6")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.appcompat:appcompat:1.4.2")
@@ -42,7 +43,20 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
-    implementation("br.com.zup.nimbus:nimbus-layout-compose:1.0.0-alpha6")
+
+
+    //Unit testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
+    testImplementation("androidx.test.ext:junit:1.1.3")
+    testImplementation("androidx.test:core:1.4.0")
+    testImplementation("androidx.test:rules:1.4.0")
+    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation ("app.cash.turbine:turbine:0.8.0")
 }
 
 android {

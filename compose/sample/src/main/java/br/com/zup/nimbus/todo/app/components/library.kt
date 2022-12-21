@@ -27,3 +27,4 @@ val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("checkbox") @Composable { CheckBox(it) }
     .addComponent("spinner") @Composable { CircularProgressIndicator() }
     .addOperation("formatDate") { formatDate(it) }
+    .addOperation("filterNotes") { filterNotes(it) }

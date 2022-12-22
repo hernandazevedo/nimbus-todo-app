@@ -2,7 +2,7 @@ import { createState, ForEach, NimbusJSX, entries, If, Else, Then } from '@zup-i
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
-import { formatDate } from '../operations'
+import { filterNotes, formatDate } from '../operations'
 import { showNotification } from '../actions'
 import { Button } from '../components/Button'
 import { Checkbox } from '../components/Checkbox'
@@ -11,6 +11,7 @@ import { TextInput } from '../components/TextInput'
 import { todoUrl } from '../constants'
 import { Note } from '../fragments/Note'
 import { ToDoItemByDate } from '../types'
+import { Expression } from '@zup-it/nimbus-backend-core'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
@@ -18,10 +19,26 @@ export const ToDoList: Screen = ({ navigator }) => {
   const showDone = createState('showDone', true)
   const isLoading = createState('isLoading', true)
   const itemsByDate = createState<ToDoItemByDate>('toDoItems', {})
+  const filteredItemsByDate = createState<ToDoItemByDate>('filteredItemsByDate', {})
+
+  function filterToDo(value: Expression<boolean>) {
+    return filteredItemsByDate.set(filterNotes(itemsByDate, searchTerm, value, showDone))
+  }
+
+  function filterDone(value: Expression<boolean>) {
+    return filteredItemsByDate.set(filterNotes(itemsByDate, searchTerm, showToDo, value))
+  }
+
+  function filterText(value: Expression<string>) {
+    return filteredItemsByDate.set(filterNotes(itemsByDate, value, showToDo, showDone))
+  }
 
   const loadItems = sendRequest<ToDoItemByDate>({
     url: todoUrl,
-    onSuccess: response => itemsByDate.set(response.get('data')),
+    onSuccess: response => [
+      itemsByDate.set(response.get('data')),
+      filteredItemsByDate.set(response.get('data')),
+    ],
     onError: response => [
       log({ level: 'error', message: response.get('message') }),
       showNotification({ type: 'error', message: 'Could not load notes.' }),
@@ -31,19 +48,19 @@ export const ToDoList: Screen = ({ navigator }) => {
 
   const header = (
     <Column marginBottom={20}>
-      <TextInput label="Search" value={searchTerm} onChange={value => searchTerm.set(value)} />
+      <TextInput label="Search" value={searchTerm} onChange={value => [searchTerm.set(value), filterText(value)]} />
       <Row marginTop={6}>
         <Row marginEnd={10}>
-          <Checkbox label="To do" checked={showToDo} onChange={value => showToDo.set(value)} />
+          <Checkbox label="To do" checked={showToDo} onChange={value => [showToDo.set(value), filterToDo(value)]} />
         </Row>
-        <Checkbox label="Done" checked={showDone} onChange={value => showDone.set(value)} />
+        <Checkbox label="Done" checked={showDone} onChange={value => [showDone.set(value), filterDone(value)]} />
       </Row>
     </Column>
   )
 
   const notes = (
     <ScrollView>
-      <ForEach items={entries(itemsByDate)} key="key">
+      <ForEach items={entries(filteredItemsByDate)} key="key">
         {(entry) => (
           <Column width="expand" marginHorizontal={12} marginBottom={20}>
             <Text weight="bold" size={16}>{formatDate(entry.get('key'))}</Text>
@@ -71,11 +88,11 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   return (
-    <Lifecycle onInit={loadItems} state={[isLoading, itemsByDate]}>
+    <Lifecycle onInit={loadItems} state={[isLoading, itemsByDate, filteredItemsByDate, searchTerm, showToDo, showDone]}>
       <If condition={isLoading}>
         <Then>{loading}</Then>
         <Else>
-          <Stack width="expand" height="expand" state={[searchTerm, showToDo, showDone]}>
+          <Stack width="expand" height="expand">
             <Positioned>
               {header}
               {notes}

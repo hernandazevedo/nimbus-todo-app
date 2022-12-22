@@ -17,4 +17,18 @@
 package br.com.zup.nimbus.todo.app.components
 
 
-data class Note(val title: String, val description: String, val date: Long, val done: Boolean)
+data class Note(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val date: Long,
+    val isDone: Boolean,
+) {
+    fun toMap() = mapOf(
+        "id" to id,
+        "title" to title,
+        "description" to description,
+        "date" to date,
+        "isDone" to isDone,
+    )
+}

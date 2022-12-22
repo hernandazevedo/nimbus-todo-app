@@ -12,7 +12,7 @@ export const Note: FC<Props> = ({ value }) => (
       <LocalImage localImageId={condition(value.get('isDone'), 'checked', 'unchecked')} width={32} height={32} />
     </Touchable>
     <Column marginHorizontal={20} width="expand">
-      <Text weight="bold">{value.get('title')}</Text>
+      <Text weight="bold">{value.get('id')}: {value.get('title')}</Text>
       <Text>{value.get('description')}</Text>
     </Column>
     <LocalImage localImageId="delete" width={18} height={18} />

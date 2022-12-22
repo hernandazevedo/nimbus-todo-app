@@ -1,4 +1,4 @@
-import { createState, ForEach, NimbusJSX, entries, If, Else, Then } from '@zup-it/nimbus-backend-core'
+import { createState, ForEach, NimbusJSX, If, Else, Then } from '@zup-it/nimbus-backend-core'
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
@@ -9,35 +9,36 @@ import { Checkbox } from '../components/Checkbox'
 import { Spinner } from '../components/Spinner'
 import { TextInput } from '../components/TextInput'
 import { todoUrl } from '../constants'
-import { Note } from '../fragments/Note'
-import { ToDoItemByDate } from '../types'
+import { NoteCard } from '../fragments/NoteCard'
+import { NoteSection } from '../types'
 import { Expression } from '@zup-it/nimbus-backend-core'
+import { Debug } from '../components/Debug'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
   const showToDo = createState('showToDo', true)
   const showDone = createState('showDone', true)
   const isLoading = createState('isLoading', true)
-  const itemsByDate = createState<ToDoItemByDate>('toDoItems', {})
-  const filteredItemsByDate = createState<ToDoItemByDate>('filteredItemsByDate', {})
+  const notes = createState<NoteSection[]>('notes', [])
+  const filtered = createState<NoteSection[]>('filtered', [])
 
   function filterToDo(value: Expression<boolean>) {
-    return filteredItemsByDate.set(filterNotes(itemsByDate, searchTerm, value, showDone))
+    return filtered.set(filterNotes(notes, searchTerm, value, showDone))
   }
 
   function filterDone(value: Expression<boolean>) {
-    return filteredItemsByDate.set(filterNotes(itemsByDate, searchTerm, showToDo, value))
+    return filtered.set(filterNotes(notes, searchTerm, showToDo, value))
   }
 
   function filterText(value: Expression<string>) {
-    return filteredItemsByDate.set(filterNotes(itemsByDate, value, showToDo, showDone))
+    return filtered.set(filterNotes(notes, value, showToDo, showDone))
   }
 
-  const loadItems = sendRequest<ToDoItemByDate>({
+  const loadItems = sendRequest<NoteSection[]>({
     url: todoUrl,
     onSuccess: response => [
-      itemsByDate.set(response.get('data')),
-      filteredItemsByDate.set(response.get('data')),
+      notes.set(response.get('data')),
+      filtered.set(response.get('data')),
     ],
     onError: response => [
       log({ level: 'error', message: response.get('message') }),
@@ -58,15 +59,17 @@ export const ToDoList: Screen = ({ navigator }) => {
     </Column>
   )
 
-  const notes = (
+  const body = (
     <ScrollView>
-      <ForEach items={entries(filteredItemsByDate)} key="key">
-        {(entry) => (
+      <ForEach items={filtered} key="date">
+        {(section) => (
           <Column width="expand" marginHorizontal={12} marginBottom={20}>
-            <Text weight="bold" size={16}>{formatDate(entry.get('key'))}</Text>
-            <ForEach items={entry.get('value')} key="id">
-              {item => <Note value={item} />}
-            </ForEach>
+            {/* <Debug id="section"> */}
+              <Text weight="bold" size={16}>{formatDate(section.get('date'))}</Text>
+              <ForEach items={section.get('items')} key="id">
+                {item => <NoteCard value={item} />}
+              </ForEach>
+            {/* </Debug> */}
           </Column>
         )}
       </ForEach>
@@ -88,14 +91,14 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   return (
-    <Lifecycle onInit={loadItems} state={[isLoading, itemsByDate, filteredItemsByDate, searchTerm, showToDo, showDone]}>
+    <Lifecycle onInit={loadItems} state={[isLoading, notes, filtered, searchTerm, showToDo, showDone]}>
       <If condition={isLoading}>
         <Then>{loading}</Then>
         <Else>
           <Stack width="expand" height="expand">
             <Positioned>
               {header}
-              {notes}
+              {body}
             </Positioned>
             {addNoteButton}
           </Stack>

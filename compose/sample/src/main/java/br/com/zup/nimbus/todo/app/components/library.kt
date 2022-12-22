@@ -16,8 +16,12 @@
 
 package br.com.zup.nimbus.todo.app.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
 
 val todoAppUI = NimbusComposeUILibrary("todoapp")
@@ -25,5 +29,11 @@ val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("textInput") @Composable { TextInput(it) }
     .addComponent("checkbox") @Composable { CheckBox(it) }
     .addComponent("spinner") @Composable { CircularProgressIndicator() }
+    .addComponent("debugContainer") @Composable {
+        if (it.node.id == "section:1671148800000") {
+            println("====> SIZE: ${it.node.children?.size}")
+        }
+        it.children()
+    }
     .addOperation("formatDate") { formatDate(it) }
     .addOperation("filterNotes") { filterNotes(it) }

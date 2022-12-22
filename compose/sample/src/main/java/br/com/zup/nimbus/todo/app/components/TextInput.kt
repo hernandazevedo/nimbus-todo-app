@@ -45,7 +45,9 @@ fun TextInput(
     TextField(
         value = value ?: "",
         keyboardOptions = KeyboardOptions(keyboardType = (type ?: TextInputType.Text).keyboard),
-        onValueChange = onChange,
+        onValueChange = {
+                        onChange(it)
+        },
         label = { androidx.compose.material.Text(label) },
         trailingIcon = {
             iconRight?.let {

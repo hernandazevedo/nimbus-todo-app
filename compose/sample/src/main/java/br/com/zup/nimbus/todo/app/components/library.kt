@@ -28,3 +28,4 @@ val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("spinner") @Composable { CircularProgressIndicator() }
     .addOperation("formatDate") { formatDate(it) }
     .addOperation("filterNotes") { filterNotes(it) }
+    .addAction("showNotification") { showNotification(it) }

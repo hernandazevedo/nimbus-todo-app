@@ -1,12 +1,12 @@
 import { NimbusJSX, FC, State, condition, not } from '@zup-it/nimbus-backend-core'
 import { Column, LocalImage, Row, Text, Touchable } from '@zup-it/nimbus-backend-layout'
-import { ToDoItem } from 'src/types'
+import { Note } from '../types'
 
 interface Props {
-  value: State<ToDoItem>,
+  value: State<Note>,
 }
 
-export const Note: FC<Props> = ({ value }) => (
+export const NoteCard: FC<Props> = ({ value }) => (
   <Row crossAxisAlignment="center" padding={10}>
     <Touchable onPress={value.get('isDone').set(not(value.get('isDone')))}>
       <LocalImage localImageId={condition(value.get('isDone'), 'checked', 'unchecked')} width={32} height={32} />

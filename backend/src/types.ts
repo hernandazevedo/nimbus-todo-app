@@ -1,6 +1,9 @@
-export type ToDoItemByDate = Record<string, ToDoItem[]>
+export interface NoteSection {
+  date: number,
+  items: Note[],
+}
 
-export interface ToDoItem {
+export interface Note {
   id: number,
   title: string,
   description: string,

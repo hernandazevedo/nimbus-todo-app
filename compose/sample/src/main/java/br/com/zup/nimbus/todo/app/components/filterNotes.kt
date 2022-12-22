@@ -20,14 +20,13 @@ import br.com.zup.nimbus.annotation.AutoDeserialize
 
 @AutoDeserialize
 fun filterNotes(
-    notes: Map<String, List<Note>>,
+    notes: List<NoteSection>,
     text: String,
     todo: Boolean,
     done: Boolean,
-): Map<String, List<Map<String, Any>>> {
-    val newMap: MutableMap<String, List<Map<String, Any>>> = mutableMapOf()
-    notes.forEach { map ->
-        val filteredList = map.value.filter {
+): List<Any> {
+    val result = notes.map { section ->
+        val filtered = section.items.filter {
             val matchesTextFilter =
                 text.isBlank() ||
                 it.description.contains(text) ||
@@ -35,10 +34,8 @@ fun filterNotes(
             val matchesDoneFilter = (todo && !it.isDone) || (done && it.isDone)
             matchesTextFilter && matchesDoneFilter
         }
-        if (filteredList.isNotEmpty()) {
-            newMap[map.key] = filteredList.map { it.toMap() }
-        }
-    }
+        NoteSection(section.date, filtered)
+    }.filter { it.items.isNotEmpty() }
 
-    return newMap
+    return result.map { it.toMap() }
 }

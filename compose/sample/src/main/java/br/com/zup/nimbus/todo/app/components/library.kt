@@ -37,3 +37,4 @@ val todoAppUI = NimbusComposeUILibrary("todoapp")
     }
     .addOperation("formatDate") { formatDate(it) }
     .addOperation("filterNotes") { filterNotes(it) }
+    .addAction("showNotification") { showNotification(it) }

@@ -22,7 +22,6 @@ import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
 
 val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("button") @Composable { Button(it) }
-    .addComponent("text") @Composable { Text(it) }
     .addComponent("textInput") @Composable { TextInput(it) }
     .addComponent("checkbox") @Composable { CheckBox(it) }
     .addComponent("spinner") @Composable { CircularProgressIndicator() }

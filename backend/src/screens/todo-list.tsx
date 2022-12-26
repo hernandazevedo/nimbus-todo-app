@@ -1,4 +1,4 @@
-import { createState, ForEach, NimbusJSX, If, Else, Then } from '@zup-it/nimbus-backend-core'
+import { createState, ForEach, NimbusJSX, If, Else, Then, or, contains, and, State, isEmpty, not } from '@zup-it/nimbus-backend-core'
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
@@ -10,7 +10,7 @@ import { Spinner } from '../components/Spinner'
 import { TextInput } from '../components/TextInput'
 import { todoUrl } from '../constants'
 import { NoteCard } from '../fragments/NoteCard'
-import { NoteSection } from '../types'
+import { Note, NoteSection } from '../types'
 import { Expression } from '@zup-it/nimbus-backend-core'
 import { Debug } from '../components/Debug'
 
@@ -49,27 +49,44 @@ export const ToDoList: Screen = ({ navigator }) => {
 
   const header = (
     <Column marginBottom={20}>
-      <TextInput label="Search" value={searchTerm} onChange={value => [searchTerm.set(value), filterText(value)]} />
+      <TextInput label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
       <Row marginTop={6}>
         <Row marginEnd={10}>
-          <Checkbox label="To do" checked={showToDo} onChange={value => [showToDo.set(value), filterToDo(value)]} />
+          <Checkbox label="To do" checked={showToDo} onChange={value => [showToDo.set(value)]} />
         </Row>
-        <Checkbox label="Done" checked={showDone} onChange={value => [showDone.set(value), filterDone(value)]} />
+        <Checkbox label="Done" checked={showDone} onChange={value => [showDone.set(value)]} />
       </Row>
     </Column>
   )
 
+  const shouldShowItem = (item: State<Note>) => {
+    const matchesTextFilter = or(
+      isEmpty(searchTerm),
+      contains(item.get('title'), searchTerm),
+      contains(item.get('description'), searchTerm),
+    )
+    const matchesDoneFilter = or(
+      and(showToDo, not(item.get('isDone'))),
+      and(showDone, item.get('isDone')),
+    )
+    return and(matchesTextFilter, matchesDoneFilter)
+  }
+
   const body = (
     <ScrollView>
-      <ForEach items={filtered} key="date">
+      <ForEach items={notes} key="date">
         {(section) => (
           <Column width="expand" marginHorizontal={12} marginBottom={20}>
-            {/* <Debug id="section"> */}
-              <Text weight="bold" size={16}>{formatDate(section.get('date'))}</Text>
-              <ForEach items={section.get('items')} key="id">
-                {item => <NoteCard value={item} />}
-              </ForEach>
-            {/* </Debug> */}
+            <Text weight="bold" size={16}>{formatDate(section.get('date'))}</Text>
+            <ForEach items={section.get('items')} key="id">
+              {item => (
+                <If condition={shouldShowItem(item)}>
+                  <Then>
+                    <NoteCard value={item} />
+                  </Then>
+                </If>
+              )}
+            </ForEach>
           </Column>
         )}
       </ForEach>

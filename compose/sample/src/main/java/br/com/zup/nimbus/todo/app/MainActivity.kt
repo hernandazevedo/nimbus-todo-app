@@ -19,8 +19,14 @@ package br.com.zup.nimbus.todo.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.Nimbus
 import br.com.zup.nimbus.compose.NimbusNavigator
 import br.com.zup.nimbus.compose.ProvideNimbus
@@ -28,6 +34,7 @@ import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.layoutUI
 import br.com.zup.nimbus.core.network.ViewRequest
 import br.com.zup.nimbus.todo.app.components.CustomError
+import br.com.zup.nimbus.todo.app.components.Spinner
 import br.com.zup.nimbus.todo.app.components.todoAppUI
 import br.com.zup.nimbus.todo.app.theme.AppTheme
 
@@ -37,6 +44,15 @@ class MainActivity : ComponentActivity() {
         ui = listOf(layoutUI, todoAppUI),
         errorView = { throwable: Throwable, retry: () -> Unit ->
             CustomError(throwable = throwable, retry = retry)
+        },
+        loadingView = {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spinner()
+            }
         }
     )
 

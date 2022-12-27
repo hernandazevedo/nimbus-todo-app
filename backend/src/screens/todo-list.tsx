@@ -12,7 +12,7 @@ import { todoUrl } from '../constants'
 import { NoteCard } from '../fragments/NoteCard'
 import { Note, NoteSection } from '../types'
 import { Expression } from '@zup-it/nimbus-backend-core'
-import { Debug } from '../components/Debug'
+import { Icon } from '../components/Icon'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
@@ -20,26 +20,10 @@ export const ToDoList: Screen = ({ navigator }) => {
   const showDone = createState('showDone', true)
   const isLoading = createState('isLoading', true)
   const notes = createState<NoteSection[]>('notes', [])
-  const filtered = createState<NoteSection[]>('filtered', [])
-
-  function filterToDo(value: Expression<boolean>) {
-    return filtered.set(filterNotes(notes, searchTerm, value, showDone))
-  }
-
-  function filterDone(value: Expression<boolean>) {
-    return filtered.set(filterNotes(notes, searchTerm, showToDo, value))
-  }
-
-  function filterText(value: Expression<string>) {
-    return filtered.set(filterNotes(notes, value, showToDo, showDone))
-  }
 
   const loadItems = sendRequest<NoteSection[]>({
     url: todoUrl,
-    onSuccess: response => [
-      notes.set(response.get('data')),
-      filtered.set(response.get('data')),
-    ],
+    onSuccess: response => notes.set(response.get('data')),
     onError: response => [
       log({ level: 'error', message: response.get('message') }),
       showNotification({ type: 'error', message: 'Could not load notes.' }),
@@ -48,15 +32,16 @@ export const ToDoList: Screen = ({ navigator }) => {
   })
 
   const header = (
-    <Column marginBottom={20}>
-      <TextInput label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
-      <Row marginTop={6}>
+    <Row backgroundColor="#5F72C0" crossAxisAlignment="center" paddingHorizontal={10} paddingVertical={5}>
+      <Icon name="search" color="#FFFFFF" width={42} height={42} />
+      <TextInput color="#FFFFFF" label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
+      {/* <Row marginTop={6}>
         <Row marginEnd={10}>
           <Checkbox label="To do" checked={showToDo} onChange={value => [showToDo.set(value)]} />
         </Row>
         <Checkbox label="Done" checked={showDone} onChange={value => [showDone.set(value)]} />
-      </Row>
-    </Column>
+      </Row> */}
+    </Row>
   )
 
   const shouldShowItem = (item: State<Note>) => {
@@ -76,8 +61,10 @@ export const ToDoList: Screen = ({ navigator }) => {
     <ScrollView>
       <ForEach items={notes} key="date">
         {(section) => (
-          <Column width="expand" marginHorizontal={12} marginBottom={20}>
-            <Text weight="bold" size={16}>{formatDate(section.get('date'))}</Text>
+          <>
+            <Column padding={12}>
+              <Text size={16} color="#616B76">{formatDate(section.get('date'))}</Text>
+            </Column>
             <ForEach items={section.get('items')} key="id">
               {item => (
                 <If condition={shouldShowItem(item)}>
@@ -87,15 +74,22 @@ export const ToDoList: Screen = ({ navigator }) => {
                 </If>
               )}
             </ForEach>
-          </Column>
+          </>
         )}
       </ForEach>
     </ScrollView>
   )
 
   const addNoteButton = (
-    <Positioned alignment="bottomEnd" margin={20}>
-      <Button width={50} height={50} radius={25} fontSize={24} onPress={showNotification({ type: 'info', message: 'This will add new notes' })}>
+    <Positioned alignment="bottomEnd" margin={14}>
+      <Button
+        backgroundColor="#5F72C0"
+        width={50}
+        height={50}
+        radius={25}
+        fontSize={24}
+        onPress={showNotification({ type: 'info', message: 'This will add new notes' })}
+      >
         +
       </Button>
     </Positioned>
@@ -108,19 +102,21 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   return (
-    <Lifecycle onInit={loadItems} state={[isLoading, notes, filtered, searchTerm, showToDo, showDone]}>
-      <If condition={isLoading}>
-        <Then>{loading}</Then>
-        <Else>
-          <Stack width="expand" height="expand">
-            <Positioned>
-              {header}
-              {body}
-            </Positioned>
-            {addNoteButton}
-          </Stack>
-        </Else>
-      </If>
+    <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, showToDo, showDone]}>
+      <Column height="expand" width="expand" backgroundColor="#F1F3F5">
+        <If condition={isLoading}>
+          <Then>{loading}</Then>
+          <Else>
+            <Stack width="expand" height="expand">
+              <Positioned>
+                {header}
+                {body}
+              </Positioned>
+              {addNoteButton}
+            </Stack>
+          </Else>
+        </If>
+      </Column>
     </Lifecycle>
   )
 }

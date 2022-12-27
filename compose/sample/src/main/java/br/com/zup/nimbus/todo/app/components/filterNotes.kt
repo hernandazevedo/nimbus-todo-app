@@ -18,24 +18,52 @@ package br.com.zup.nimbus.todo.app.components
 
 import br.com.zup.nimbus.annotation.AutoDeserialize
 
+//@AutoDeserialize
+//fun filterNotes(
+//    notes: List<NoteSection>,
+//    text: String,
+//    todo: Boolean,
+//    done: Boolean,
+//): List<Any> {
+//    val result = notes.map { section ->
+//        val filtered = section.items.filter {
+//            val matchesTextFilter =
+//                text.isBlank() ||
+//                it.description.contains(text) ||
+//                it.title.contains(text)
+//            val matchesDoneFilter = (todo && !it.isDone) || (done && it.isDone)
+//            matchesTextFilter && matchesDoneFilter
+//        }
+//        NoteSection(section.date, filtered)
+//    }.filter { it.items.isNotEmpty() }
+//
+//    return result.map { it.toMap() }
+//}
+
 @AutoDeserialize
 fun filterNotes(
-    notes: List<NoteSection>,
+    notes: List<Note>,
     text: String,
     todo: Boolean,
     done: Boolean,
-): List<Any> {
-    val result = notes.map { section ->
-        val filtered = section.items.filter {
-            val matchesTextFilter =
-                text.isBlank() ||
-                it.description.contains(text) ||
-                it.title.contains(text)
-            val matchesDoneFilter = (todo && !it.isDone) || (done && it.isDone)
-            matchesTextFilter && matchesDoneFilter
+): List<Map<String, Any>> {
+    val result = mutableMapOf<String, MutableList<Int>>()
+    notes.forEachIndexed { index, note ->
+        val matchesTextFilter = text.isBlank() ||
+                    note.description.contains(text) ||
+                    note.title.contains(text)
+        val matchesDoneFilter = (todo && !note.isDone) || (done && note.isDone)
+        if (matchesTextFilter && matchesDoneFilter) {
+            val date = formatDate(note.date)
+            val section = result[date] ?: run {
+                val newSection = mutableListOf<Int>()
+                result[date] = newSection
+                newSection
+            }
+            section.add(index)
         }
-        NoteSection(section.date, filtered)
-    }.filter { it.items.isNotEmpty() }
-
-    return result.map { it.toMap() }
+    }
+    return result.map { (date, items) ->
+        mapOf("date" to date, "items" to items)
+    }
 }

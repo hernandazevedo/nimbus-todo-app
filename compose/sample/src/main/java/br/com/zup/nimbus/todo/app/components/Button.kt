@@ -21,16 +21,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
+import br.com.zup.nimbus.compose.layout.extensions.color
 
 @Composable
 @AutoDeserialize
@@ -42,6 +45,7 @@ fun Button(
     width: Double? = null,
     height: Double? = null,
     fontSize: Double? = null,
+    backgroundColor: String? = null,
     onPress: () -> Unit,
 ) {
     var newModifier = modifier
@@ -54,11 +58,18 @@ fun Button(
     if (height != null) {
         newModifier = newModifier.height(height.dp)
     }
+    val colors = backgroundColor?.let {
+        ButtonDefaults.buttonColors(
+            backgroundColor = backgroundColor.color,
+            contentColor = Color.White,
+        )
+    } ?: ButtonDefaults.buttonColors()
     Button(
         modifier = newModifier,
         enabled = enabled ?: true,
         content = { Text(text, fontSize = fontSize?.sp ?: 12.sp) },
         onClick = onPress,
+        colors = colors,
     )
 }
 

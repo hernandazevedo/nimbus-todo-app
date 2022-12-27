@@ -20,14 +20,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
+import br.com.zup.nimbus.compose.layout.extensions.color
 import br.com.zup.nimbus.todo.app.getDrawableResByName
 
 @Composable
@@ -38,10 +41,11 @@ fun TextInput(
     value: String? = null,
     type: TextInputType? = null,
     onChange: (value: String) -> Unit,
+    color: String? = null,
     @Ignore modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-
+    val textFieldColor = color?.color ?: Color.Unspecified
     TextField(
         value = value ?: "",
         keyboardOptions = KeyboardOptions(keyboardType = (type ?: TextInputType.Text).keyboard),
@@ -58,6 +62,15 @@ fun TextInput(
             }
         },
         modifier = modifier.fillMaxWidth(),
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            textColor = textFieldColor,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedLabelColor = textFieldColor,
+            unfocusedLabelColor = textFieldColor,
+            cursorColor = textFieldColor,
+        )
     )
 }
 

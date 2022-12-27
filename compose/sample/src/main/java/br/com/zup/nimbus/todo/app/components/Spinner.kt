@@ -16,15 +16,11 @@
 
 package br.com.zup.nimbus.todo.app.components
 
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
+import br.com.zup.nimbus.todo.app.theme.ThemeColor
 
-val todoAppUI = NimbusComposeUILibrary("todoapp")
-    .addComponent("button") @Composable { Button(it) }
-    .addComponent("textInput") @Composable { TextInput(it) }
-    .addComponent("checkbox") @Composable { CheckBox(it) }
-    .addComponent("icon") @Composable { AppIcon(it) }
-    .addComponent("spinner") @Composable { Spinner() }
-    .addOperation("formatDate") { formatDate(it) }
-    .addOperation("filterNotes") { filterNotes(it) }
-    .addAction("showNotification") { showNotification(it) }
+@Composable
+fun Spinner() {
+    CircularProgressIndicator(color = ThemeColor)
+}

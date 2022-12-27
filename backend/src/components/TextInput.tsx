@@ -5,6 +5,7 @@ interface Props {
   label: Expression<string>,
   iconRight?: Expression<string>,
   value?: Expression<string>,
+  color?: Expression<string>,
   onChange: (value: State<string>) => Actions,
 }
 

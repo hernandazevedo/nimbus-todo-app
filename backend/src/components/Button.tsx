@@ -9,6 +9,7 @@ interface Props {
   radius?: Expression<number>,
   fontSize?: Expression<number>,
   children?: Expression<string>,
+  backgroundColor?: Expression<string>,
 }
 
 export const Button: FC<Props> = ({ id, state, children, ...props }) =>

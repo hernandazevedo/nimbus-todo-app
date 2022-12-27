@@ -21,6 +21,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import br.com.zup.nimbus.compose.layout.extensions.color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -57,4 +60,7 @@ fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() 
         shapes = Shapes,
         content = content
     )
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(color = "#4C5B91".color)
 }

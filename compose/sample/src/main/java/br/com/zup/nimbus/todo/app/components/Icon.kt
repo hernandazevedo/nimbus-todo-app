@@ -36,13 +36,11 @@ enum class IconName { Search, Delete }
 fun AppIcon(
     name: IconName,
     color: String?,
-    width: Double?,
-    height: Double?,
+    size: Double?,
 ) {
     val tint = color?.color ?: Color.Unspecified
-    var modifier: Modifier = Modifier
-    if (width != null) { modifier = modifier.width(width.dp) }
-    if (height != null) { modifier = modifier.height(height.dp) }
+    val iconSize = size ?: 20.0
+    val modifier = Modifier.width(iconSize.dp).height(iconSize.dp)
     val icon = when (name) {
         IconName.Search -> Icons.Outlined.Search
         IconName.Delete -> Icons.Outlined.Delete

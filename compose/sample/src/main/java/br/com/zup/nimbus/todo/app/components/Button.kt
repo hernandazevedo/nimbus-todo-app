@@ -46,6 +46,7 @@ fun Button(
     height: Double? = null,
     fontSize: Double? = null,
     backgroundColor: String? = null,
+    foregroundColor: String? = null,
     onPress: () -> Unit,
 ) {
     var newModifier = modifier
@@ -58,12 +59,10 @@ fun Button(
     if (height != null) {
         newModifier = newModifier.height(height.dp)
     }
-    val colors = backgroundColor?.let {
-        ButtonDefaults.buttonColors(
-            backgroundColor = backgroundColor.color,
-            contentColor = Color.White,
-        )
-    } ?: ButtonDefaults.buttonColors()
+    val colors = ButtonDefaults.buttonColors(
+        backgroundColor = backgroundColor?.color ?: Color.Cyan,
+        contentColor = foregroundColor?.color ?: Color.White,
+    )
     Button(
         modifier = newModifier,
         enabled = enabled ?: true,

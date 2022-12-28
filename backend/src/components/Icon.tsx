@@ -6,8 +6,7 @@ type IconName = 'search' | 'delete'
 interface Props {
   name: Expression<IconName>,
   color?: Expression<string>,
-  width?: Expression<number>,
-  height?: Expression<number>,
+  size?: Expression<number>,
 }
 
 export const Icon: FC<Props> = ({ id, state, ...props }) =>

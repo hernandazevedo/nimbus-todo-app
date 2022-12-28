@@ -1,18 +1,17 @@
-import { createState, ForEach, NimbusJSX, If, Else, Then, or, contains, and, State, isEmpty, not } from '@zup-it/nimbus-backend-core'
+import { createState, ForEach, NimbusJSX, If, Else, Then, or, contains, and, State, isEmpty, not, eq, subtract, length } from '@zup-it/nimbus-backend-core'
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
-import { Screen } from '@zup-it/nimbus-backend-express'
-import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
-import { filterNotes, formatDate } from '../operations'
+import { Column, Lifecycle, Positioned, Row, ScreenComponent, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
+import { formatDate } from '../operations'
 import { showNotification } from '../actions'
 import { Button } from '../components/Button'
-import { Checkbox } from '../components/Checkbox'
 import { Spinner } from '../components/Spinner'
 import { TextInput } from '../components/TextInput'
 import { todoUrl } from '../constants'
 import { NoteCard } from '../fragments/NoteCard'
 import { Note, NoteSection } from '../types'
-import { Expression } from '@zup-it/nimbus-backend-core'
 import { Icon } from '../components/Icon'
+import { Screen } from '@zup-it/nimbus-backend-express'
+import { Separator } from '../fragments/Separator'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
@@ -32,8 +31,8 @@ export const ToDoList: Screen = ({ navigator }) => {
   })
 
   const header = (
-    <Row backgroundColor="#5F72C0" crossAxisAlignment="center" paddingHorizontal={10} paddingVertical={5}>
-      <Icon name="search" color="#FFFFFF" width={42} height={42} />
+    <Row backgroundColor="#5F72C0" crossAxisAlignment="center" paddingHorizontal={20} height={65}>
+      <Icon name="search" color="#FFFFFF" size={28} />
       <TextInput color="#FFFFFF" label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
       {/* <Row marginTop={6}>
         <Row marginEnd={10}>
@@ -59,17 +58,19 @@ export const ToDoList: Screen = ({ navigator }) => {
 
   const body = (
     <ScrollView>
-      <ForEach items={notes} key="date">
+      <ForEach items={notes} key="date" iteratorName="section">
         {(section) => (
           <>
-            <Column padding={12}>
+            <Column paddingVertical={12} paddingHorizontal={20}>
               <Text size={16} color="#616B76">{formatDate(section.get('date'))}</Text>
             </Column>
+            <Separator />
             <ForEach items={section.get('items')} key="id">
-              {item => (
+              {(item) => (
                 <If condition={shouldShowItem(item)}>
                   <Then>
                     <NoteCard value={item} />
+                    <Separator />
                   </Then>
                 </If>
               )}
@@ -81,9 +82,10 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   const addNoteButton = (
-    <Positioned alignment="bottomEnd" margin={14}>
+    <Positioned alignment="bottomEnd" margin={28}>
       <Button
         backgroundColor="#5F72C0"
+        foregroundColor="#FFFFFF"
         width={50}
         height={50}
         radius={25}

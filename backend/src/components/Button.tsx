@@ -10,6 +10,7 @@ interface Props {
   fontSize?: Expression<number>,
   children?: Expression<string>,
   backgroundColor?: Expression<string>,
+  foregroundColor?: Expression<string>,
 }
 
 export const Button: FC<Props> = ({ id, state, children, ...props }) =>

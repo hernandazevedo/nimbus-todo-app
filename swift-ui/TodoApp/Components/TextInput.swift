@@ -12,10 +12,8 @@ import NimbusSwiftUI
 
 struct TextInput: View, Decodable {
   var label: String
-  var iconRight: String?
   var value: String?
-//  var type: TextInputType
-
+  var color: Color?
   @StatefulEvent var onChange: (String) -> Void
 
   var body: some View {
@@ -25,6 +23,11 @@ struct TextInput: View, Decodable {
           onChange($0)
         }
     )
-    TextField(label, text: binding)
+    ZStack(alignment: .leading) {
+      if (value?.isEmpty != false) { Text(label).foregroundColor(color) }
+      TextField("", text: binding)
+        .foregroundColor(color)
+        .accentColor(color)
+    }.padding(16)
   }
 }

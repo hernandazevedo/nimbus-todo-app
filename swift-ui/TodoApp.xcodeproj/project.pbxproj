@@ -18,6 +18,7 @@
 		93E0533329522BC100589EA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0533229522BC100589EA3 /* ContentView.swift */; };
 		93E0533529522BC200589EA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E0533429522BC200589EA3 /* Assets.xcassets */; };
 		93E0533829522BC200589EA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E0533729522BC200589EA3 /* Preview Assets.xcassets */; };
+		AFA68964295DBD0A007C06EA /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA68963295DBD0A007C06EA /* Toast.swift */; };
 		AFD7AC63295B81260084B4AD /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD7AC62295B81260084B4AD /* Icon.swift */; };
 		AFD7AC67295CC03B0084B4AD /* SelectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD7AC66295CC03B0084B4AD /* SelectionGroup.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		93E0533229522BC100589EA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		93E0533429522BC200589EA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93E0533729522BC200589EA3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AFA68963295DBD0A007C06EA /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		AFD7AC62295B81260084B4AD /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		AFD7AC66295CC03B0084B4AD /* SelectionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +67,7 @@
 				93DB57732954CDC500E0EDEC /* TextInput.swift */,
 				AFD7AC62295B81260084B4AD /* Icon.swift */,
 				AFD7AC66295CC03B0084B4AD /* SelectionGroup.swift */,
+				AFA68963295DBD0A007C06EA /* Toast.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				93E0533329522BC100589EA3 /* ContentView.swift in Sources */,
 				AFD7AC67295CC03B0084B4AD /* SelectionGroup.swift in Sources */,
 				93DB57702954CC9900E0EDEC /* Button.swift in Sources */,
+				AFA68964295DBD0A007C06EA /* Toast.swift in Sources */,
 				93DB57742954CDC500E0EDEC /* TextInput.swift in Sources */,
 				93E0533129522BC100589EA3 /* TodoAppApp.swift in Sources */,
 			);

@@ -26,6 +26,7 @@ val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("icon") @Composable { AppIcon(it) }
     .addComponent("spinner") @Composable { Spinner() }
     .addComponent("selectionGroup") @Composable { SelectionGroup(it) }
+    .addComponent("toast") @Composable { Toast(it) }
     .addOperation("formatDate") { formatDate(it) }
     .addOperation("filterNotes") { filterNotes(it) }
     .addAction("showNotification") { showNotification(it) }

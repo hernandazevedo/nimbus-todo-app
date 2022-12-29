@@ -13,14 +13,14 @@ import { Icon } from '../components/Icon'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Separator } from '../fragments/Separator'
 import { SelectionGroup } from '../components/SelectionGroup'
+import { Toast } from '../components/Toast'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
-  // const showToDo = createState('showToDo', true)
-  // const showDone = createState('showDone', true)
   const doneFilter = createState<'All' | 'To do' | 'Done'>('doneFilter', 'All')
   const isLoading = createState('isLoading', true)
   const notes = createState<NoteSection[]>('notes', [])
+  const toastMessage = createState('toastMessage', '')
 
   const loadItems = sendRequest<NoteSection[]>({
     url: todoUrl,
@@ -39,12 +39,6 @@ export const ToDoList: Screen = ({ navigator }) => {
         <TextInput color="#FFFFFF" label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
       </Row>
       <SelectionGroup options={["All", "To do", "Done"]} value={doneFilter} onChange={value => doneFilter.set(value)} />
-      {/* <Row marginTop={6}>
-        <Row marginEnd={10}>
-          <Checkbox label="To do" checked={showToDo} onChange={value => [showToDo.set(value)]} />
-        </Row>
-        <Checkbox label="Done" checked={showDone} onChange={value => [showDone.set(value)]} />
-      </Row> */}
     </Row>
   )
 
@@ -54,10 +48,6 @@ export const ToDoList: Screen = ({ navigator }) => {
       contains(item.get('title'), searchTerm),
       contains(item.get('description'), searchTerm),
     )
-    // const matchesDoneFilter = or(
-    //   and(showToDo, not(item.get('isDone'))),
-    //   and(showDone, item.get('isDone')),
-    // )
     const matchesDoneFilter = or(
       eq(doneFilter, "All"),
       and(eq(doneFilter, "To do"), not(item.get('isDone'))),
@@ -100,10 +90,16 @@ export const ToDoList: Screen = ({ navigator }) => {
         height={50}
         radius={25}
         fontSize={24}
-        onPress={showNotification({ type: 'info', message: 'This will add new notes' })}
+        onPress={toastMessage.set('A modal should be shown here')}
       >
         +
       </Button>
+    </Positioned>
+  )
+
+  const toast = (
+    <Positioned alignment="bottomCenter" marginBottom={16}>
+      <Toast message={toastMessage} onHide={toastMessage.set('')} />
     </Positioned>
   )
 
@@ -114,7 +110,7 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   return (
-    <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter]}>
+    <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter, toastMessage]}>
       <Column height="expand" width="expand" backgroundColor="#F1F3F5">
         <If condition={isLoading}>
           <Then>{loading}</Then>
@@ -125,6 +121,7 @@ export const ToDoList: Screen = ({ navigator }) => {
                 {body}
               </Positioned>
               {addNoteButton}
+              {toast}
             </Stack>
           </Else>
         </If>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app.component
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -44,8 +44,8 @@ fun Button(
     width: Double? = null,
     height: Double? = null,
     fontSize: Double? = null,
-    backgroundColor: String? = null,
-    foregroundColor: String? = null,
+    backgroundColor: Color? = null,
+    foregroundColor: Color? = null,
     onPress: () -> Unit,
 ) {
     var newModifier = modifier
@@ -59,8 +59,8 @@ fun Button(
         newModifier = newModifier.height(height.dp)
     }
     val colors = ButtonDefaults.buttonColors(
-        backgroundColor = backgroundColor?.color ?: Color.Cyan,
-        contentColor = foregroundColor?.color ?: Color.White,
+        backgroundColor = backgroundColor ?: Color.Cyan,
+        contentColor = foregroundColor ?: Color.White,
     )
     Button(
         modifier = newModifier,
@@ -69,17 +69,4 @@ fun Button(
         onClick = onPress,
         colors = colors,
     )
-}
-
-@Preview
-@Composable
-fun ButtonSample() {
-
-    Button(text = "+",
-        radius = 50.0,
-        modifier = Modifier.size(50.dp)
-    ) {
-
-    }
-
 }

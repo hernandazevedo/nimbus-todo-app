@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,7 +27,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
-import br.com.zup.nimbus.compose.layout.extensions.color
 
 @Composable
 @AutoDeserialize
@@ -37,9 +36,9 @@ fun TextInput(
     value: String? = null,
     type: TextInputType? = null,
     onChange: (value: String) -> Unit,
-    color: String? = null,
+    color: Color? = null,
 ) {
-    val textFieldColor = color?.color ?: Color.Unspecified
+    val textFieldColor = color ?: Color.Unspecified
     TextField(
         value = value ?: "",
         keyboardOptions = KeyboardOptions(keyboardType = (type ?: TextInputType.Text).keyboard),

@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app.deserialization
 
+import androidx.compose.ui.graphics.Color
+import br.com.zup.nimbus.annotation.Deserializer
+import br.com.zup.nimbus.compose.layout.extensions.color
+import br.com.zup.nimbus.core.deserialization.AnyServerDrivenData
 
-data class Note(
-    val id: Int,
-    val title: String,
-    val description: String,
-    val date: Long,
-    val isDone: Boolean,
-) {
-    fun toMap() = mapOf(
-        "id" to id,
-        "title" to title,
-        "description" to description,
-        "date" to date,
-        "isDone" to isDone,
-    )
-}
+// In future releases, by adding compose-layout, the deserializer for Color should also be included
+// and this code should not be necessary.
+@Deserializer
+fun deserializeColor(data: AnyServerDrivenData): Color? = data.asStringOrNull()?.color

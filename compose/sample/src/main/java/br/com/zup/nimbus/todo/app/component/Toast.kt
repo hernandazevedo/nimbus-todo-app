@@ -14,49 +14,53 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zup.nimbus.annotation.AutoDeserialize
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-private val unselectedColor = Color(red = 95, green = 114, blue = 192)
-private val selectedColor = Color(red = 76, green = 91, blue = 145)
+const val DURATION_MILLIS = 6000L
 
 @Composable
 @AutoDeserialize
-fun SelectionGroup(
-    options: List<String>,
-    value: String,
-    onChange: (String) -> Unit,
+fun Toast(
+    message: String,
+    onHide: () -> Unit,
 ) {
-    Row(Modifier
-        .border(width = 1.dp, color = selectedColor, shape = RoundedCornerShape(8.dp))
-        .clip(RoundedCornerShape(8.dp))
-        .background(selectedColor)
-    ) {
-        options.forEachIndexed { index, option ->
-            val isLastItem = index == options.size - 1
-            Box(Modifier
-                .clickable { onChange(option) }
-                .padding(end = (if (isLastItem) 0 else 1).dp)
-                .background(if (value == option) Color.Transparent else unselectedColor)
-                .padding(horizontal = 10.dp, vertical = 8.dp)
-            ) {
-                Text(option, color = Color.White, fontSize = 13.sp)
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(message) {
+        if (message.isNotEmpty()) {
+            scope.launch {
+                delay(DURATION_MILLIS)
+                onHide()
             }
         }
+    }
+
+    Column(
+        Modifier
+            .alpha(if (message.isEmpty()) 0F else 1F)
+            .clip(RoundedCornerShape(50))
+            .background(Color(red = 220, green = 0, blue = 0, alpha = (0.65 * 255).toInt()))
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Text(message, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
     }
 }

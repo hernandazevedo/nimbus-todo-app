@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app.component
 
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import java.text.SimpleDateFormat

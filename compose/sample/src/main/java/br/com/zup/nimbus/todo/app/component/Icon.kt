@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app.component
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -35,10 +35,10 @@ enum class IconName { Search, Delete }
 @AutoDeserialize
 fun AppIcon(
     name: IconName,
-    color: String?,
+    color: Color?,
     size: Double?,
 ) {
-    val tint = color?.color ?: Color.Unspecified
+    val tint = color ?: Color.Unspecified
     val iconSize = size ?: 20.0
     val modifier = Modifier.width(iconSize.dp).height(iconSize.dp)
     val icon = when (name) {

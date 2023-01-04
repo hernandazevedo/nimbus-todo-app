@@ -14,19 +14,44 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app.components
+package br.com.zup.nimbus.todo.app
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import br.com.zup.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.layout.layoutUI
 import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
+import br.com.zup.nimbus.todo.app.component.AppIcon
+import br.com.zup.nimbus.todo.app.component.Button
+import br.com.zup.nimbus.todo.app.component.SelectionGroup
+import br.com.zup.nimbus.todo.app.component.Spinner
+import br.com.zup.nimbus.todo.app.component.TextInput
+import br.com.zup.nimbus.todo.app.component.Toast
+import br.com.zup.nimbus.todo.app.component.formatDate
 
-val todoAppUI = NimbusComposeUILibrary("todoapp")
+private val todoAppUI = NimbusComposeUILibrary("todoapp")
     .addComponent("button") @Composable { Button(it) }
     .addComponent("textInput") @Composable { TextInput(it) }
-    .addComponent("checkbox") @Composable { CheckBox(it) }
     .addComponent("icon") @Composable { AppIcon(it) }
     .addComponent("spinner") @Composable { Spinner() }
     .addComponent("selectionGroup") @Composable { SelectionGroup(it) }
     .addComponent("toast") @Composable { Toast(it) }
     .addOperation("formatDate") { formatDate(it) }
-    .addOperation("filterNotes") { filterNotes(it) }
-    .addAction("showNotification") { showNotification(it) }
+
+val nimbus = Nimbus(
+    baseUrl = BASE_URL,
+    ui = listOf(layoutUI, todoAppUI),
+    loadingView = {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Spinner()
+        }
+    }
+)

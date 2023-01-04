@@ -16,6 +16,7 @@
 
 package br.com.zup.nimbus.todo.app.components
 
+import br.com.zup.nimbus.todo.app.component.filterNotes
 import org.junit.Assert
 import org.junit.Test
 import java.util.Date

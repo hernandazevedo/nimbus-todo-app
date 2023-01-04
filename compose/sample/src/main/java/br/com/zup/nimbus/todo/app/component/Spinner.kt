@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.todo.app
+package br.com.zup.nimbus.todo.app.component
 
-import android.content.Context
-import br.com.zup.nimbus.todo.app.BuildConfig.APPLICATION_ID
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.runtime.Composable
+import br.com.zup.nimbus.todo.app.theme.ThemeColor
 
-fun Context.getDrawableResByName(aString: String): Int =
-    resources.getIdentifier(aString, "drawable", APPLICATION_ID)
+@Composable
+fun Spinner() {
+    CircularProgressIndicator(color = ThemeColor)
+}

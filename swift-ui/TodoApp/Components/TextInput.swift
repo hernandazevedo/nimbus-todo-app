@@ -1,15 +1,6 @@
 import SwiftUI
 import NimbusSwiftUI
 
-//fun TextInput(
-//    label: String,
-//    iconRight: String? = null,
-//    value: String? = null,
-//    type: TextInputType? = null,
-//    onChange: (value: String) -> Unit,
-//    @Ignore modifier: Modifier = Modifier
-//)
-
 struct TextInput: View, Decodable {
   var label: String
   var value: String?

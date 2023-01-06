@@ -1,17 +1,6 @@
 import SwiftUI
 import NimbusSwiftUI
 
-//fun Button(
-//    text: String,
-//    @Ignore modifier: Modifier = Modifier,
-//    enabled: Boolean? = null,
-//    radius: Double? = null,
-//    width: Double? = null,
-//    height: Double? = null,
-//    fontSize: Double? = null,
-//    onPress: () -> Unit,
-//)
-
 struct CustomButton: View, Decodable {
   var text: String?
   var enabled: Bool?

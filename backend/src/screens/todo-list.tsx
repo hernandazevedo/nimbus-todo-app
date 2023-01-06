@@ -110,7 +110,7 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   return (
-    <ScreenComponent safeAreaTopBackground="#5F72C0" statusBarColorScheme="dark">
+    <ScreenComponent safeAreaTopBackground="#5F72C0" statusBarColorScheme="dark" ignoreSafeArea={['bottom']}>
       <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter, toastMessage]}>
         <Column height="expand" width="expand" backgroundColor="#F1F3F5">
           <If condition={isLoading}>

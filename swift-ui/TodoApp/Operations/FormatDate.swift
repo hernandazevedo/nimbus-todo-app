@@ -1,8 +1,6 @@
 import Foundation
 import NimbusSwiftUI
 
-//fun formatDate(timeMillis: Long)
-
 struct FormatDate: OperationDecodable {
   static var properties = ["timeMillis"]
 

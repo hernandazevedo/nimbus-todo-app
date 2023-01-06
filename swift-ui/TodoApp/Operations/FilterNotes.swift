@@ -1,13 +1,5 @@
 import NimbusSwiftUI
 
-//data class Note(
-//    val id: Int,
-//    val title: String,
-//    val description: String,
-//    val date: Long,
-//    val isDone: Boolean,
-//)
-
 struct Note: Decodable {
   var id: Int
   var title: String
@@ -26,16 +18,6 @@ struct Note: Decodable {
   }
 }
 
-//data class NoteSection(
-//    val date: Long,
-//    val items: List<Note>,
-//) {
-//    fun toMap() = mapOf(
-//        "date" to date,
-//        "items" to items.map { it.toMap() }
-//    )
-//}
-
 struct NoteSection: Decodable {
   var date: Int
   var items: [Note]
@@ -47,13 +29,6 @@ struct NoteSection: Decodable {
     ]
   }
 }
-
-//fun filterNotes(
-//    notes: Map<String, List<Note>>,
-//    text: String,
-//    todo: Boolean,
-//    done: Boolean,
-//)
 
 struct FilterNotes: OperationDecodable {
   static var properties = ["notes", "text", "todo", "done"]

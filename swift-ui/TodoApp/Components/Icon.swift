@@ -2,34 +2,27 @@ import Foundation
 import SwiftUI
 import NimbusSwiftUI
 
-//enum IconName: Decodable {
-//  case search
-//  case delete
-//}
-//
-//func systemName(_ name: IconName) -> String {
-//  switch name {
-//  case .search: return "magnifyingglass"
-//  case .delete: return "trash"
-//  }
-//}
+enum IconName: String, Decodable {
+  case search
+  case delete
 
-func systemName(_ name: String) -> String {
-  switch name {
-  case "search": return "magnifyingglass"
-  case "delete": return "trash"
-  default: return ""
+  var systemName: String {
+    switch self {
+    case .search:
+      return "magnifyingglass"
+    case .delete:
+      return "trash"
+    }
   }
 }
 
 struct Icon: View, Decodable {
-//  var name: IconName
-  var name: String
+  var name: IconName
   var color: Color?
   var size: Double?
 
   var body: some View {
-    Image(systemName: systemName(name))
+    Image(systemName: name.systemName)
       .font(.system(size: size ?? 20, weight: .light))
       .foregroundColor(color)
   }

@@ -25,11 +25,10 @@ val serializationVersion = "1.3.2"
 val ktorVersion = "2.0.0"
 
 dependencies {
-    implementation("br.com.zup.nimbus:nimbus-core-jvm:1.0.0-alpha9999")
     implementation("br.com.zup.nimbus:nimbus-compose:${rootProject.extra["nimbus_compose_version"]}")
     implementation("br.com.zup.nimbus:nimbus-compose-annotation:${rootProject.extra["nimbus_compose_version"]}")
     ksp("br.com.zup.nimbus:nimbus-compose-processor:${rootProject.extra["nimbus_compose_version"]}")
-    implementation("br.com.zup.nimbus:nimbus-layout-compose:1.0.0-alpha")
+    implementation("br.com.zup.nimbus:nimbus-layout-compose:1.0.0+")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.appcompat:appcompat:1.4.2")
@@ -43,7 +42,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
 
     //Unit testing
     testImplementation("junit:junit:4.13.2")

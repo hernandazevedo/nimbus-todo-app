@@ -1,6 +1,6 @@
-import { createState, ForEach, NimbusJSX, If, Else, Then, or, contains, and, State, isEmpty, not, eq, subtract, length } from '@zup-it/nimbus-backend-core'
+import { createState, ForEach, NimbusJSX, If, Else, Then, or, contains, and, State, isEmpty, not, eq, subtract, length, lowercase } from '@zup-it/nimbus-backend-core'
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
-import { Column, Lifecycle, Positioned, Row, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
+import { Column, Lifecycle, Positioned, Row, ScreenComponent, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
 import { formatDate } from '../operations'
 import { showNotification } from '../actions'
 import { Button } from '../components/Button'
@@ -45,8 +45,8 @@ export const ToDoList: Screen = ({ navigator }) => {
   const shouldShowItem = (item: State<Note>) => {
     const matchesTextFilter = or(
       isEmpty(searchTerm),
-      contains(item.get('title'), searchTerm),
-      contains(item.get('description'), searchTerm),
+      contains(lowercase(item.get('title')), lowercase(searchTerm)),
+      contains(lowercase(item.get('description')), lowercase(searchTerm)),
     )
     const matchesDoneFilter = or(
       eq(doneFilter, "All"),
@@ -110,22 +110,24 @@ export const ToDoList: Screen = ({ navigator }) => {
   )
 
   return (
-    <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter, toastMessage]}>
-      <Column height="expand" width="expand" backgroundColor="#F1F3F5">
-        <If condition={isLoading}>
-          <Then>{loading}</Then>
-          <Else>
-            <Stack width="expand" height="expand">
-              <Positioned>
-                {header}
-                {body}
-              </Positioned>
-              {addNoteButton}
-              {toast}
-            </Stack>
-          </Else>
-        </If>
-      </Column>
-    </Lifecycle>
+    <ScreenComponent safeAreaTopBackground="#5F72C0" statusBarColorScheme="dark">
+      <Lifecycle onInit={loadItems} state={[isLoading, notes, searchTerm, doneFilter, toastMessage]}>
+        <Column height="expand" width="expand" backgroundColor="#F1F3F5">
+          <If condition={isLoading}>
+            <Then>{loading}</Then>
+            <Else>
+              <Stack width="expand" height="expand">
+                <Positioned>
+                  {header}
+                  {body}
+                </Positioned>
+                {addNoteButton}
+                {toast}
+              </Stack>
+            </Else>
+          </If>
+        </Column>
+      </Lifecycle>
+    </ScreenComponent>
   )
 }

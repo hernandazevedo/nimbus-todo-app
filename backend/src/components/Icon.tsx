@@ -1,7 +1,7 @@
 import { NimbusJSX, FC, Expression } from '@zup-it/nimbus-backend-core'
 import { namespace } from '../constants'
 
-type IconName = 'search' | 'delete'
+export type IconName = 'search' | 'delete' | 'plus'
 
 interface Props {
   name: Expression<IconName>,

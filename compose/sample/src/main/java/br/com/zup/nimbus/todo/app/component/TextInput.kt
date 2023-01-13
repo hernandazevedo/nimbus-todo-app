@@ -17,7 +17,9 @@
 package br.com.zup.nimbus.todo.app.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -25,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
 
@@ -37,15 +40,16 @@ fun TextInput(
     type: TextInputType? = null,
     onChange: (value: String) -> Unit,
     color: Color? = null,
+    header: Boolean? = null,
 ) {
-    val textFieldColor = color ?: Color.Unspecified
+    val textFieldColor = color ?: Color.DarkGray
     TextField(
         value = value ?: "",
         keyboardOptions = KeyboardOptions(keyboardType = (type ?: TextInputType.Text).keyboard),
         onValueChange = onChange,
-        label = { androidx.compose.material.Text(label) },
+        label = { Text(label) },
         modifier = modifier.fillMaxWidth(),
-        singleLine = true,
+        singleLine = header == true,
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.Transparent,
             textColor = textFieldColor,

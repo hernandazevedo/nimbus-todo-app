@@ -16,36 +16,37 @@
 
 package br.com.zup.nimbus.todo.app.component
 
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Search
+import android.widget.CalendarView
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import br.com.zup.nimbus.annotation.AutoDeserialize
-
-enum class IconName { Search, Delete, Plus }
+import java.util.GregorianCalendar
 
 @Composable
 @AutoDeserialize
-fun AppIcon(
-    name: IconName,
-    color: Color? = null,
-    size: Double? = null,
+fun DatePicker(
+    value: Long? = null,
+    onChange: (value: Long) -> Unit,
 ) {
-    val tint = color ?: Color.Unspecified
-    val iconSize = size ?: 20.0
-    val modifier = Modifier.width(iconSize.dp).height(iconSize.dp)
-    val icon = when (name) {
-        IconName.Search -> Icons.Outlined.Search
-        IconName.Delete -> Icons.Outlined.Delete
-        IconName.Plus -> Icons.Outlined.Add
-    }
-    Icon(icon, "", modifier, tint)
-}
+    val (firstRender, setFirstRender) = remember { mutableStateOf(true) }
 
+    AndroidView(
+        { CalendarView(it) },
+        update = { views ->
+            if (firstRender) views.date = value ?: System.currentTimeMillis()
+            views.setOnDateChangeListener { _, year, month, day ->
+                val date = GregorianCalendar(year, month - 1, day).time
+                onChange(date.time)
+            }
+            setFirstRender(false)
+        }
+    )
+}

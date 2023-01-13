@@ -5,13 +5,16 @@ import NimbusSwiftUI
 enum IconName: String, Decodable {
   case search
   case delete
-
+  case plus
+  
   var systemName: String {
     switch self {
     case .search:
       return "magnifyingglass"
     case .delete:
       return "trash"
+    case .plus:
+      return "plus"
     }
   }
 }

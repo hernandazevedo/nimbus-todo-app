@@ -14,12 +14,20 @@ struct ContentView: View {
 
 let todoLibrary = NimbusSwiftUILibrary("todoapp")
   .addComponent("spinner") { _ in
-    AnyView(ProgressView())
+    AnyView(
+      ProgressView()
+        .progressViewStyle(
+          CircularProgressViewStyle(
+            tint: Color(red: 97/255, green: 107/255, blue: 118/255)
+          )
+        )
+    )
   }
-  .addComponent("button", CustomButton.self)
+  .addComponent("button", AppButton.self)
+  .addComponent("circularButton", CircularButton.self)
   .addComponent("textInput", TextInput.self)
+  .addComponent("datePicker", AppDatePicker.self)
   .addComponent("icon", Icon.self)
   .addComponent("selectionGroup", SelectionGroup.self)
   .addComponent("toast", Toast.self)
   .addOperation("formatDate", FormatDate.self)
-  .addOperation("filterNotes", FilterNotes.self)

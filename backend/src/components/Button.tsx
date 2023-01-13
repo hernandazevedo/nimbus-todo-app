@@ -2,15 +2,9 @@ import { NimbusJSX, FC, Actions, Expression } from '@zup-it/nimbus-backend-core'
 import { namespace } from '../constants'
 
 interface Props {
-  enabled?: Expression<boolean>,
   onPress: Actions,
-  width?: Expression<number>,
-  height?: Expression<number>,
-  radius?: Expression<number>,
-  fontSize?: Expression<number>,
   children?: Expression<string>,
-  backgroundColor?: Expression<string>,
-  foregroundColor?: Expression<string>,
+  primary?: boolean,
 }
 
 export const Button: FC<Props> = ({ id, state, children, ...props }) =>

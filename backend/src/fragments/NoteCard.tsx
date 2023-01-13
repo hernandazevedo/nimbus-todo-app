@@ -1,13 +1,14 @@
-import { NimbusJSX, FC, State, condition, not, If, Then, isEmpty } from '@zup-it/nimbus-backend-core'
+import { NimbusJSX, FC, State, condition, not, If, Then, isEmpty, Actions } from '@zup-it/nimbus-backend-core'
 import { Column, Row, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 import { Icon } from '../components/Icon'
 import { Note } from '../types'
 
 interface Props {
   value: State<Note>,
+  onShowEditModal: Actions,
 }
 
-export const NoteCard: FC<Props> = ({ value }) => (
+export const NoteCard: FC<Props> = ({ value, onShowEditModal }) => (
   <Row crossAxisAlignment="center" paddingVertical={12} paddingHorizontal={20} backgroundColor="#FFFFFF" minHeight={60}>
     <Touchable onPress={value.get('isDone').set(not(value.get('isDone')))}>
       <Column
@@ -19,14 +20,16 @@ export const NoteCard: FC<Props> = ({ value }) => (
         height={22}
       />
     </Touchable>
-    <Column marginHorizontal={20} width="expand">
-      <Text weight="bold" color="#616B76">{value.get('title')}</Text>
-      <If condition={not(isEmpty(value.get('description')))}>
-        <Then>
-          <Column marginTop={8}><Text color="#85919C">{value.get('description')}</Text></Column>
-        </Then>
-      </If>
-    </Column>
+    <Touchable onPress={onShowEditModal}>
+      <Column marginHorizontal={20} width="expand">
+        <Text weight="bold" color="#616B76">{value.get('title')}</Text>
+        <If condition={not(isEmpty(value.get('description')))}>
+          <Then>
+            <Column marginTop={8}><Text color="#85919C">{value.get('description')}</Text></Column>
+          </Then>
+        </If>
+      </Column>
+    </Touchable>
     <Icon name="delete" size={20} color="#F00000" />
   </Row>
 )

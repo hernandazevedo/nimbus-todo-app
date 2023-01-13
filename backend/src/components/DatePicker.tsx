@@ -3,16 +3,13 @@ import { namespace } from '../constants'
 
 interface Props {
   label: Expression<string>,
-  iconRight?: Expression<string>,
-  value?: Expression<string>,
-  color?: Expression<string>,
-  header?: Expression<boolean>,
-  onChange: (value: State<string>) => Actions,
+  value?: Expression<number>,
+  onChange: (value: State<number>) => Actions,
 }
 
-export const TextInput: FC<Props> = ({ id, state, onChange, ...props }) => <component
+export const DatePicker: FC<Props> = ({ id, state, onChange, ...props }) => <component
   namespace={namespace}
-  name="textInput"
+  name="datePicker"
   id={id}
   state={state}
   properties={{ onChange: onChange(createStateNode('onChange')), ...props }}

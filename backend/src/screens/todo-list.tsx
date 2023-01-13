@@ -3,7 +3,7 @@ import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Column, Lifecycle, Positioned, Row, ScreenComponent, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
 import { formatDate } from '../operations'
 import { showNotification } from '../actions'
-import { Button } from '../components/Button'
+import { CircularButton } from '../components/CircularButton'
 import { Spinner } from '../components/Spinner'
 import { TextInput } from '../components/TextInput'
 import { todoUrl } from '../constants'
@@ -14,6 +14,7 @@ import { Screen } from '@zup-it/nimbus-backend-express'
 import { Separator } from '../fragments/Separator'
 import { SelectionGroup } from '../components/SelectionGroup'
 import { Toast } from '../components/Toast'
+import { EditNote } from './edit-note'
 
 export const ToDoList: Screen = ({ navigator }) => {
   const searchTerm = createState('searchTerm', '')
@@ -36,7 +37,7 @@ export const ToDoList: Screen = ({ navigator }) => {
     <Row backgroundColor="#5F72C0" crossAxisAlignment="center" paddingHorizontal={20} height={65}>
       <Icon name="search" color="#FFFFFF" size={28} />
       <Row width="expand">
-        <TextInput color="#FFFFFF" label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
+        <TextInput header color="#FFFFFF" label="Search" value={searchTerm} onChange={value => [searchTerm.set(value)]} />
       </Row>
       <SelectionGroup options={["All", "To do", "Done"]} value={doneFilter} onChange={value => doneFilter.set(value)} />
     </Row>
@@ -69,7 +70,22 @@ export const ToDoList: Screen = ({ navigator }) => {
               {(item) => (
                 <If condition={shouldShowItem(item)}>
                   <Then>
-                    <NoteCard value={item} />
+                    <NoteCard
+                      value={item}
+                      onShowEditModal={navigator.present(
+                        EditNote,
+                        {
+                          state: { note: item },
+                          events: {
+                            onSaveNote: (edited) => [
+                              item.get('title').set(edited.get('title')),
+                              item.get('description').set(edited.get('description')),
+                              item.get('date').set(edited.get('date')),
+                            ]
+                          },
+                        }
+                      )}
+                    />
                     <Separator />
                   </Then>
                 </If>
@@ -83,17 +99,10 @@ export const ToDoList: Screen = ({ navigator }) => {
 
   const addNoteButton = (
     <Positioned alignment="bottomEnd" margin={28}>
-      <Button
-        backgroundColor="#5F72C0"
-        foregroundColor="#FFFFFF"
-        width={50}
-        height={50}
-        radius={25}
-        fontSize={24}
+      <CircularButton
+        icon="plus"
         onPress={toastMessage.set('A modal should be shown here')}
-      >
-        +
-      </Button>
+      />
     </Positioned>
   )
 

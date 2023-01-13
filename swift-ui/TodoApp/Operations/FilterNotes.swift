@@ -30,22 +30,20 @@ struct NoteSection: Decodable {
   }
 }
 
-struct FilterNotes: OperationDecodable {
-  static var properties = ["notes", "text", "todo", "done"]
+struct SaveNote: OperationDecodable {
+  static var properties = ["notes", "noteToSave"]
 
   var notes: [NoteSection]
-  var text: String
-  var todo: Bool
-  var done: Bool
+  var noteToSave: Note
 
   func execute() -> [Any] {
-    notes.compactMap { section in
-      let result = section.items.filter { note in
-        let matchesTextFilter = text == "" || note.title.contains(text) || note.description.contains(text)
-        let matchesDoneFilter = (todo && !note.isDone) || (done && note.isDone)
-        return matchesTextFilter && matchesDoneFilter
+    let savedNotes: [NoteSection] = []
+    notes.forEach { section in
+      let savedSection = NoteSection()
+      section.items.forEach { item in
+        if (item.id == noteToSave.id)
       }
-      return !result.isEmpty ? NoteSection(date: section.date, items: result).toMap() : nil
     }
+    
   }
 }

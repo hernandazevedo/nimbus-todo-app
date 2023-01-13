@@ -25,8 +25,10 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.Nimbus
 import br.com.zup.nimbus.compose.layout.layoutUI
 import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
+import br.com.zup.nimbus.todo.app.component.AppButton
 import br.com.zup.nimbus.todo.app.component.AppIcon
-import br.com.zup.nimbus.todo.app.component.Button
+import br.com.zup.nimbus.todo.app.component.CircularButton
+import br.com.zup.nimbus.todo.app.component.DatePicker
 import br.com.zup.nimbus.todo.app.component.SelectionGroup
 import br.com.zup.nimbus.todo.app.component.Spinner
 import br.com.zup.nimbus.todo.app.component.TextInput
@@ -34,8 +36,10 @@ import br.com.zup.nimbus.todo.app.component.Toast
 import br.com.zup.nimbus.todo.app.component.formatDate
 
 private val todoAppUI = NimbusComposeUILibrary("todoapp")
-    .addComponent("button") @Composable { Button(it) }
+    .addComponent("button") @Composable { AppButton(it) }
+    .addComponent("circularButton") @Composable { CircularButton(it) }
     .addComponent("textInput") @Composable { TextInput(it) }
+    .addComponent("datePicker") @Composable { DatePicker(it) }
     .addComponent("icon") @Composable { AppIcon(it) }
     .addComponent("spinner") @Composable { Spinner() }
     .addComponent("selectionGroup") @Composable { SelectionGroup(it) }

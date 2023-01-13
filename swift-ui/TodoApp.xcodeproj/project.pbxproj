@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93823D3129522DCD00895B3A /* NimbusLayoutSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 93823D3029522DCD00895B3A /* NimbusLayoutSwiftUI */; };
-		93DB57702954CC9900E0EDEC /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB576F2954CC9900E0EDEC /* Button.swift */; };
+		93DB57702954CC9900E0EDEC /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB576F2954CC9900E0EDEC /* CircularButton.swift */; };
 		93DB57742954CDC500E0EDEC /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB57732954CDC500E0EDEC /* TextInput.swift */; };
-		93DB57782954CF8E00E0EDEC /* FilterNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB57772954CF8E00E0EDEC /* FilterNotes.swift */; };
 		93DB577A2954D41F00E0EDEC /* FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB57792954D41F00E0EDEC /* FormatDate.swift */; };
 		93E0533129522BC100589EA3 /* TodoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0533029522BC100589EA3 /* TodoAppApp.swift */; };
 		93E0533329522BC100589EA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0533229522BC100589EA3 /* ContentView.swift */; };
 		93E0533529522BC200589EA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E0533429522BC200589EA3 /* Assets.xcassets */; };
 		93E0533829522BC200589EA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E0533729522BC200589EA3 /* Preview Assets.xcassets */; };
 		AFA68964295DBD0A007C06EA /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA68963295DBD0A007C06EA /* Toast.swift */; };
+		AFD72FC4296F3777008D7FBF /* NimbusLayoutSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AFD72FC3296F3777008D7FBF /* NimbusLayoutSwiftUI */; };
+		AFD72FC6296F4389008D7FBF /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD72FC5296F4389008D7FBF /* Button.swift */; };
+		AFD72FC82970837F008D7FBF /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD72FC72970837F008D7FBF /* DatePicker.swift */; };
 		AFD7AC63295B81260084B4AD /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD7AC62295B81260084B4AD /* Icon.swift */; };
 		AFD7AC67295CC03B0084B4AD /* SelectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD7AC66295CC03B0084B4AD /* SelectionGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		93DB576F2954CC9900E0EDEC /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		93DB576F2954CC9900E0EDEC /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		93DB57732954CDC500E0EDEC /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
-		93DB57772954CF8E00E0EDEC /* FilterNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNotes.swift; sourceTree = "<group>"; };
 		93DB57792954D41F00E0EDEC /* FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDate.swift; sourceTree = "<group>"; };
 		93E0532D29522BC100589EA3 /* TodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E0533029522BC100589EA3 /* TodoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAppApp.swift; sourceTree = "<group>"; };
@@ -32,6 +32,8 @@
 		93E0533429522BC200589EA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93E0533729522BC200589EA3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AFA68963295DBD0A007C06EA /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		AFD72FC5296F4389008D7FBF /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		AFD72FC72970837F008D7FBF /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		AFD7AC62295B81260084B4AD /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		AFD7AC66295CC03B0084B4AD /* SelectionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -41,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93823D3129522DCD00895B3A /* NimbusLayoutSwiftUI in Frameworks */,
+				AFD72FC4296F3777008D7FBF /* NimbusLayoutSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,11 +60,13 @@
 		939881A3295234D5001B7FE2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				93DB576F2954CC9900E0EDEC /* Button.swift */,
+				93DB576F2954CC9900E0EDEC /* CircularButton.swift */,
 				93DB57732954CDC500E0EDEC /* TextInput.swift */,
 				AFD7AC62295B81260084B4AD /* Icon.swift */,
 				AFD7AC66295CC03B0084B4AD /* SelectionGroup.swift */,
 				AFA68963295DBD0A007C06EA /* Toast.swift */,
+				AFD72FC5296F4389008D7FBF /* Button.swift */,
+				AFD72FC72970837F008D7FBF /* DatePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -70,7 +74,6 @@
 		93DB57752954CF7200E0EDEC /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				93DB57772954CF8E00E0EDEC /* FilterNotes.swift */,
 				93DB57792954D41F00E0EDEC /* FormatDate.swift */,
 			);
 			path = Operations;
@@ -133,7 +136,7 @@
 			);
 			name = TodoApp;
 			packageProductDependencies = (
-				93823D3029522DCD00895B3A /* NimbusLayoutSwiftUI */,
+				AFD72FC3296F3777008D7FBF /* NimbusLayoutSwiftUI */,
 			);
 			productName = TodoApp;
 			productReference = 93E0532D29522BC100589EA3 /* TodoApp.app */;
@@ -164,7 +167,7 @@
 			);
 			mainGroup = 93E0532429522BC100589EA3;
 			packageReferences = (
-				93823D2E29522CE500895B3A /* XCRemoteSwiftPackageReference "nimbus-layout-swiftui" */,
+				AFD72FC2296F3777008D7FBF /* XCRemoteSwiftPackageReference "nimbus-layout-swiftui" */,
 			);
 			productRefGroup = 93E0532E29522BC100589EA3 /* Products */;
 			projectDirPath = "";
@@ -194,10 +197,11 @@
 			files = (
 				AFD7AC63295B81260084B4AD /* Icon.swift in Sources */,
 				93DB577A2954D41F00E0EDEC /* FormatDate.swift in Sources */,
-				93DB57782954CF8E00E0EDEC /* FilterNotes.swift in Sources */,
 				93E0533329522BC100589EA3 /* ContentView.swift in Sources */,
 				AFD7AC67295CC03B0084B4AD /* SelectionGroup.swift in Sources */,
-				93DB57702954CC9900E0EDEC /* Button.swift in Sources */,
+				AFD72FC6296F4389008D7FBF /* Button.swift in Sources */,
+				93DB57702954CC9900E0EDEC /* CircularButton.swift in Sources */,
+				AFD72FC82970837F008D7FBF /* DatePicker.swift in Sources */,
 				AFA68964295DBD0A007C06EA /* Toast.swift in Sources */,
 				93DB57742954CDC500E0EDEC /* TextInput.swift in Sources */,
 				93E0533129522BC100589EA3 /* TodoAppApp.swift in Sources */,
@@ -401,20 +405,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		93823D2E29522CE500895B3A /* XCRemoteSwiftPackageReference "nimbus-layout-swiftui" */ = {
+		AFD72FC2296F3777008D7FBF /* XCRemoteSwiftPackageReference "nimbus-layout-swiftui" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ZupIT/nimbus-layout-swiftui";
 			requirement = {
-				branch = ci/swiftlint;
+				branch = "feat/navigation-callback";
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		93823D3029522DCD00895B3A /* NimbusLayoutSwiftUI */ = {
+		AFD72FC3296F3777008D7FBF /* NimbusLayoutSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 93823D2E29522CE500895B3A /* XCRemoteSwiftPackageReference "nimbus-layout-swiftui" */;
+			package = AFD72FC2296F3777008D7FBF /* XCRemoteSwiftPackageReference "nimbus-layout-swiftui" */;
 			productName = NimbusLayoutSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */

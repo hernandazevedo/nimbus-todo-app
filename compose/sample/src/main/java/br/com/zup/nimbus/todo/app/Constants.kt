@@ -17,4 +17,4 @@
 package br.com.zup.nimbus.todo.app
 
 
-const val BASE_URL = "http://172.17.61.49:3000"
+const val BASE_URL = "http://10.0.2.2:3000"

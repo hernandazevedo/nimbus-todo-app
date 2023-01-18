@@ -26,3 +26,6 @@ Open the project inside `swift-ui` with XCode and press the button to run the pr
 
 https://user-images.githubusercontent.com/1119029/213175146-7967bb4e-0d05-4b09-b5b5-2cda3ec8d4c7.mov
 
+## Android
+
+https://user-images.githubusercontent.com/1119029/213193149-648ced82-3853-4ac4-bd21-0832eab1bd6b.mp4

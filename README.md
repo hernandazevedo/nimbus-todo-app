@@ -19,3 +19,10 @@ Open the folder `compose` with Android Studio and press the button to run the pr
 
 # Running the iOS App
 Open the project inside `swift-ui` with XCode and press the button to run the project.
+
+# Current status of the implementation
+
+## iOS
+
+https://user-images.githubusercontent.com/1119029/213175146-7967bb4e-0d05-4b09-b5b5-2cda3ec8d4c7.mov
+

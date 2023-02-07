@@ -1,17 +1,19 @@
 import { createState, NimbusJSX, object, State } from '@zup-it/nimbus-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Column, Row, ScreenComponent, Text } from '@zup-it/nimbus-backend-layout'
+import { sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { DatePicker } from '../components/DatePicker'
 import { Button } from '../components/Button'
 import { TextInput } from '../components/TextInput'
 import { Note } from '../types'
+import { todoAPIKey, todoAPIUrl } from '../constants'
 
 interface EditNoteScreenRequest extends ScreenRequest {
   state: {
     note: Note,
   },
   events: {
-    onSaveNote: Note,
+    onSaveNote: boolean,
   }
 }
 
@@ -20,6 +22,17 @@ export const EditNote: Screen<EditNoteScreenRequest> = ({ getViewState, triggerV
   const title = createState('title', note.get('title'))
   const description = createState('description', note.get('description'))
   const date = createState('date', note.get('date'))
+
+  const save = sendRequest({
+    url: `${todoAPIUrl}/note`,
+    method: 'Put',
+    headers: { key: todoAPIKey() },
+    data: { id: note.get('id'), title, description, date, isDone: note.get('isDone') },
+    onSuccess: () => [
+      triggerViewEvent('onSaveNote', true),
+      navigator.dismiss(),
+    ]
+  })
 
   return (
     <Column state={[title, description, date]} width="expand" height="expand" backgroundColor="#F1F3F5" mainAxisAlignment="center" crossAxisAlignment="center">
@@ -34,19 +47,7 @@ export const EditNote: Screen<EditNoteScreenRequest> = ({ getViewState, triggerV
           <Column marginEnd={20}>
             <Button onPress={navigator.dismiss()}>Cancel</Button>
           </Column>
-          <Button primary onPress={[
-            triggerViewEvent(
-              'onSaveNote',
-              object({
-                id: note.get('id'),
-                title,
-                description,
-                date,
-                isDone: note.get('isDone'),
-              }),
-            ),
-            navigator.dismiss(),
-          ]}>
+          <Button primary onPress={save}>
             Save
           </Button>
         </Row>

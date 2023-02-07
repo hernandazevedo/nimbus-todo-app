@@ -2,11 +2,10 @@ import { createState, ForEach, NimbusJSX, If, Else, Then, or, contains, and, Sta
 import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { Column, Lifecycle, Positioned, Row, ScreenComponent, ScrollView, Stack, Text } from '@zup-it/nimbus-backend-layout'
 import { formatDate } from '../operations'
-import { showNotification } from '../actions'
 import { CircularButton } from '../components/CircularButton'
 import { Spinner } from '../components/Spinner'
 import { TextInput } from '../components/TextInput'
-import { todoUrl } from '../constants'
+import { todoAPIUrl, todoAPIKey } from '../constants'
 import { NoteCard } from '../fragments/NoteCard'
 import { Note, NoteSection } from '../types'
 import { Icon } from '../components/Icon'
@@ -24,11 +23,12 @@ export const ToDoList: Screen = ({ navigator }) => {
   const toastMessage = createState('toastMessage', '')
 
   const loadItems = sendRequest<NoteSection[]>({
-    url: todoUrl,
+    url: `${todoAPIUrl}/notes`,
+    headers: { key: todoAPIKey() },
     onSuccess: response => notes.set(response.get('data')),
     onError: response => [
       log({ level: 'error', message: response.get('message') }),
-      showNotification({ type: 'error', message: 'Could not load notes.' }),
+      toastMessage.set('Unable to load the notes'),
     ],
     onFinish: isLoading.set(false),
   })
@@ -77,11 +77,7 @@ export const ToDoList: Screen = ({ navigator }) => {
                         {
                           state: { note: item },
                           events: {
-                            onSaveNote: (edited) => [
-                              item.get('title').set(edited.get('title')),
-                              item.get('description').set(edited.get('description')),
-                              item.get('date').set(edited.get('date')),
-                            ]
+                            onSaveNote: () => loadItems,
                           },
                         }
                       )}

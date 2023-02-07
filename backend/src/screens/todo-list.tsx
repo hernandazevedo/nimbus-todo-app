@@ -77,7 +77,7 @@ export const ToDoList: Screen = ({ navigator }) => {
                         {
                           state: { note: item },
                           events: {
-                            onSaveNote: () => loadItems,
+                            onSaveNote: (updatedNotes) => notes.set(updatedNotes),
                           },
                         }
                       )}

@@ -1,11 +1,11 @@
 import { createState, NimbusJSX, object, State } from '@zup-it/nimbus-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Column, Row, ScreenComponent, Text } from '@zup-it/nimbus-backend-layout'
-import { sendRequest } from '@zup-it/nimbus-backend-core/actions'
+import { log, sendRequest } from '@zup-it/nimbus-backend-core/actions'
 import { DatePicker } from '../components/DatePicker'
 import { Button } from '../components/Button'
 import { TextInput } from '../components/TextInput'
-import { Note } from '../types'
+import { Note, NoteSection } from '../types'
 import { todoAPIKey, todoAPIUrl } from '../constants'
 
 interface EditNoteScreenRequest extends ScreenRequest {
@@ -13,7 +13,7 @@ interface EditNoteScreenRequest extends ScreenRequest {
     note: Note,
   },
   events: {
-    onSaveNote: boolean,
+    onSaveNote: NoteSection[],
   }
 }
 
@@ -23,15 +23,16 @@ export const EditNote: Screen<EditNoteScreenRequest> = ({ getViewState, triggerV
   const description = createState('description', note.get('description'))
   const date = createState('date', note.get('date'))
 
-  const save = sendRequest({
+  const save = sendRequest<NoteSection[]>({
     url: `${todoAPIUrl}/note`,
     method: 'Put',
     headers: { key: todoAPIKey() },
     data: { id: note.get('id'), title, description, date, isDone: note.get('isDone') },
-    onSuccess: () => [
-      triggerViewEvent('onSaveNote', true),
+    onSuccess: (response) => [
+      triggerViewEvent('onSaveNote', response.get('data')),
       navigator.dismiss(),
-    ]
+    ],
+    onError: (error) => log({ level: 'error', message: error.get('message') }),
   })
 
   return (

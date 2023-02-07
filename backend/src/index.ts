@@ -7,7 +7,6 @@ import configs from '../nimbus-ts.json'
 import { routes } from './screens'
 
 dotenv.config()
-console.log(process.env)
 
 const expressApp = express()
 expressApp.use(cors()).use(express.json())
